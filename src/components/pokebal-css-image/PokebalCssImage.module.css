@@ -1,0 +1,45 @@
+.pokebal {
+  @apply rounded-full border-black border-2 relative;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(255, 255, 255, 1) 50%
+  );
+}
+
+.pokebal:before {
+  @apply absolute bg-black;
+  content: "";
+  top: 45%;
+  left: 0;
+  height: 10%;
+  width: 100%;
+}
+
+.pokebalButton {
+  @apply absolute w-full h-full flex justify-center items-center;
+}
+
+.pokebalButton:after {
+  @apply rounded-full;
+
+  --border-size: 15%;
+  --size: 33%;
+
+  content: "";
+  height: var(--size);
+  width: var(--size);
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) calc(50% - var(--border-size)),
+    rgba(0, 0, 0, 1) calc(50% - var(--border-size)),
+    rgba(0, 0, 0, 1) calc(50% - var(--border-size)),
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) calc(50% + var(--border-size)),
+    rgba(0, 0, 0, 1) calc(50% + var(--border-size)),
+    rgba(0, 0, 0, 0) calc(50% + var(--border-size))
+  );
+}

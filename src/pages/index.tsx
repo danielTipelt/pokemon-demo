@@ -1,37 +1,19 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import Image from "next/image";
 import { Layout } from "../components/Layout";
+import { PokebalCssImage } from "../components/pokebal-css-image/PokebalCssImage";
 
-const HomePage: NextPage<{ name: string }> = (props) => {
-  const [name, setName] = useState(props.name);
-
-  const handleGetReviews = async () => {
-    // Client-side request are mocked by `mocks/browser.js`.
-    const res = await fetch("/name");
-    const data = await res.json();
-    setName(data);
-  };
-
+const HomePage: NextPage = () => {
   return (
     <Layout>
-      <h1>Make your pokeball full</h1>
-      <button type="button" onClick={handleGetReviews}>
-        Fetch
-      </button>
+      <h1>Make your pokéballs full</h1>
+      <p data-testid="description">
+        You can pick pokémons and prepare your own pokéballs in this app.
+        Excited like hell, right?
+      </p>
+      <PokebalCssImage className="w-24 h-24" />
     </Layout>
   );
 };
 
 export default HomePage;
-
-export async function getServerSideProps() {
-  // Server-side requests are mocked by `mocks/server.js`.
-  const res = await fetch("https://my.backend/name");
-  const name = await res.json();
-
-  return {
-    props: {
-      name: name,
-    },
-  };
-}
