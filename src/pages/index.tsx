@@ -12,7 +12,9 @@ const HomePage: NextPage = () => {
         Excited like hell, right?
       </p>
       <PokebalCssImage className="w-24 h-24" />
-      <Link href="/pokeballs">Go catch &apos;em!</Link>
+      <Link href="/pokeballs">
+        <a data-testid="cta-button">Go catch &apos;em!</a>
+      </Link>
     </Layout>
   );
 };

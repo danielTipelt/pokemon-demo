@@ -14,6 +14,6 @@ describe("homepage", function () {
     render(<HomePage />);
     const cta = screen.getByTestId("cta-button");
     expect(cta).toBeInTheDocument();
-    expect(cta).toHaveAttribute("href", "/pokeball");
+    expect(cta).toHaveAttribute("href", "/pokeballs");
   });
 });
