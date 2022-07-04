@@ -9,4 +9,11 @@ describe("homepage", function () {
     expect(screen.getByTestId("description")).toBeInTheDocument();
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
+
+  test("I shows cta button", function () {
+    render(<HomePage />);
+    const cta = screen.getByTestId("cta-button");
+    expect(cta).toBeInTheDocument();
+    expect(cta).toHaveAttribute("href", "/pokeball");
+  });
 });

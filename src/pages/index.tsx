@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Image from "next/image";
+import Link from "next/link";
 import { Layout } from "../components/Layout";
 import { PokebalCssImage } from "../components/pokebal-css-image/PokebalCssImage";
 
@@ -12,6 +12,7 @@ const HomePage: NextPage = () => {
         Excited like hell, right?
       </p>
       <PokebalCssImage className="w-24 h-24" />
+      <Link href="/pokeballs">Go catch &apos;em!</Link>
     </Layout>
   );
 };
