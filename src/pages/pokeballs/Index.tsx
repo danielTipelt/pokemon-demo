@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
@@ -11,6 +11,14 @@ export default function PokeballsPage() {
     isValidating,
     mutate,
   } = useFetch<Pokeball[]>("/api/pokeballs");
+
+  const [activePokeball, setActivePokeball] = useState<Pokeball | null>(null);
+
+  useEffect(() => {
+    if (!activePokeball && pokeballs.length) {
+      setActivePokeball(pokeballs[0]);
+    }
+  }, [activePokeball, pokeballs]);
 
   return (
     <Layout>
@@ -28,8 +36,19 @@ export default function PokeballsPage() {
             ) : (
               <ul>
                 {pokeballs.map((pokeball) => (
-                  <li key={pokeball.id} data-testid="pokeball">
-                    {pokeball.name}
+                  <li
+                    key={pokeball.id}
+                    data-testid="pokeball"
+                    aria-current={pokeball === activePokeball}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActivePokeball(pokeball);
+                      }}
+                    >
+                      {pokeball.name}
+                    </button>
                   </li>
                 ))}
               </ul>
