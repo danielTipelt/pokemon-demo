@@ -73,6 +73,17 @@ describe("Pokeball page", function () {
       expect(activePokeball).not.toHaveAttribute("aria-current", "true");
     });
 
+    test("It shows new pokeball button", async function () {
+      render(<PokeballsPage />);
+
+      const createPokeballItem = screen.getByTestId("create-pokeball");
+      expect(createPokeballItem).toBeInTheDocument();
+      expect(within(createPokeballItem).getByRole("link")).toHaveAttribute(
+        "href",
+        "/pokeballs/new"
+      );
+    });
+
     test("It shows loading state", async function () {
       render(<PokeballsPage />);
       expect(screen.queryByTestId("spinner")).toBeInTheDocument();

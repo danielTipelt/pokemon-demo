@@ -32,11 +32,16 @@ export default function PokeballsPage() {
               mutate();
             }}
           >
-            {!pokeballs.length && isValidating ? (
-              <span data-testid="spinner">...loading</span>
-            ) : (
-              <ul>
-                {pokeballs.map((pokeball) => (
+            <ul>
+              <li data-testid="create-pokeball" title="Create new pokeball">
+                <Link href="/pokeballs/new">Add pokéball</Link>
+              </li>
+              {!pokeballs.length && isValidating ? (
+                <li>
+                  <span data-testid="spinner">...loading</span>
+                </li>
+              ) : (
+                pokeballs.map((pokeball) => (
                   <li
                     key={pokeball.id}
                     data-testid="pokeball"
@@ -52,9 +57,9 @@ export default function PokeballsPage() {
                       {pokeball.name}
                     </button>
                   </li>
-                ))}
-              </ul>
-            )}
+                ))
+              )}
+            </ul>
           </ErrorBoundary>
         </section>
 
