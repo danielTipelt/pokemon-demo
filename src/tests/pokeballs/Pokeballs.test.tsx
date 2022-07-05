@@ -1,4 +1,4 @@
-import PokeballsPage from "../../pages/pokeballs/Index";
+import PokeballsPage from "../../pages/pokeballs";
 import { rest } from "msw";
 import { Pokeball } from "../../types/Pokeball";
 import { server } from "../../msw/server";
@@ -45,5 +45,45 @@ describe("Pokeball page", function () {
       expect(screen.queryAllByTestId("pokeball")).toHaveLength(3)
     );
     expect(screen.queryByTestId("spinner")).not.toBeInTheDocument();
+  });
+
+  test("It shows error state", async function () {
+    server.use(
+      rest.get("http://localhost/api/pokeballs", async (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({ errorMessage: "Unknown test error" })
+        );
+      })
+    );
+
+    const { user } = render(<PokeballsPage />);
+
+    await waitFor(() =>
+      expect(screen.queryByTestId("spinner")).not.toBeInTheDocument()
+    );
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+
+    server.resetHandlers();
+    server.use(
+      rest.get("http://localhost/api/pokeballs", async (req, res, ctx) => {
+        return res(
+          ctx.json([
+            { name: "Pika pika", id: "1" },
+            { name: "Bulba bulba", id: "2" },
+            { name: "Char char", id: "3" },
+          ] as Pokeball[])
+        );
+      })
+    );
+
+    const retryButton = screen.getByRole("alert").querySelector("button");
+    expect(retryButton).toBeInTheDocument();
+
+    await user.click(retryButton as HTMLButtonElement);
+
+    await waitFor(() =>
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument()
+    );
   });
 });

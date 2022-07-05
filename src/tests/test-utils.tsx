@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { SWRConfig } from "swr";
+import userEvent from "@testing-library/user-event";
 
 const Wrapper = (props: { children: ReactNode }) => {
   return (
@@ -10,8 +11,10 @@ const Wrapper = (props: { children: ReactNode }) => {
   );
 };
 
-const customRender = (ui: ReactElement, options?: RenderOptions) =>
-  render(ui, { wrapper: Wrapper, ...options });
+const customRender = (ui: ReactElement, options?: RenderOptions) => ({
+  user: userEvent.setup(),
+  ...render(ui, { wrapper: Wrapper, ...options }),
+});
 
 // re-export everything
 export * from "@testing-library/react";
