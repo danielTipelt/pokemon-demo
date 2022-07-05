@@ -22,7 +22,7 @@ export default function PokeballsPage() {
 
   return (
     <Layout>
-      <div className="flex">
+      <div className="flex gap-6 flex-column md:flex-row">
         <h1>Choose pokéball</h1>
         <section className="flex flex-col">
           <ErrorBoundary
@@ -40,6 +40,7 @@ export default function PokeballsPage() {
                     key={pokeball.id}
                     data-testid="pokeball"
                     aria-current={pokeball === activePokeball}
+                    title={pokeball.name}
                   >
                     <button
                       type="button"
@@ -54,6 +55,10 @@ export default function PokeballsPage() {
               </ul>
             )}
           </ErrorBoundary>
+        </section>
+
+        <section className="flex flex-col">
+          <h2>{activePokeball?.name}</h2>
         </section>
       </div>
     </Layout>

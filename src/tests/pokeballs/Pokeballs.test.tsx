@@ -26,25 +26,23 @@ describe("Pokeball page", function () {
     test("It shows title and 3 existing pokeballs", async function () {
       render(<PokeballsPage />);
 
-      expect(screen.getByRole("heading")).toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
 
       const pokeballs = await waitFor(() => screen.getAllByTestId("pokeball"));
 
       expect(pokeballs).toHaveLength(3);
 
-      expect(pokeballs[0].textContent).toEqual("Pika pika");
-      expect(pokeballs[1].textContent).toEqual("Bulba bulba");
-      expect(pokeballs[2].textContent).toEqual("Char char");
+      expect(pokeballs[0].title).toEqual("Pika pika");
+      expect(pokeballs[1].title).toEqual("Bulba bulba");
+      expect(pokeballs[2].title).toEqual("Char char");
     });
 
     test("It shows active pokeball", async function () {
       const { user } = render(<PokeballsPage />);
 
-      expect(screen.getByRole("heading")).toBeInTheDocument();
-
-      const pokeballs = await waitFor(() => screen.getAllByTestId("pokeball"));
-      const activePokeball = pokeballs[0];
-      const nextPokeball = pokeballs[1];
+      const [activePokeball, nextPokeball] = await waitFor(() =>
+        screen.getAllByTestId("pokeball")
+      );
 
       expect(activePokeball).toHaveAttribute("aria-current", "true");
       expect(nextPokeball).not.toHaveAttribute("aria-current", "true");
@@ -101,8 +99,17 @@ describe("Pokeball page", function () {
   });
 
   describe("Pokeball detail section", function () {
-    test("It shows pokeball name input", async function () {
+    test("It shows active pokeball name", async function () {
       render(<PokeballsPage />);
+
+      const pokeballs = await waitFor(() => screen.getAllByTestId("pokeball"));
+      const activePokeball = pokeballs.find(
+        (pokeball) => pokeball.getAttribute("aria-current") === "true"
+      );
+
+      expect(screen.getByRole("heading", { level: 2 }).textContent).toEqual(
+        activePokeball?.title
+      );
     });
   });
 });
