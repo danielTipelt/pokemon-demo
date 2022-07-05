@@ -4,18 +4,39 @@ import { Pokeball } from "../../types/Pokeball";
 import { server } from "../../msw/server";
 import { render, screen, waitFor, within } from "../test-utils";
 
+const usedPokeballs: Pokeball[] = [
+  {
+    name: "Pika pika",
+    id: "1",
+    content: [
+      { id: "1", name: "pikachu" },
+      { id: "2", name: "rajcu" },
+    ],
+  },
+  {
+    name: "Bulba bulba",
+    id: "2",
+    content: [
+      { id: "1", name: "pikachu" },
+      { id: "2", name: "rajcu" },
+    ],
+  },
+  {
+    name: "Char char",
+    id: "3",
+    content: [
+      { id: "1", name: "pikachu" },
+      { id: "2", name: "rajcu" },
+    ],
+  },
+];
+
 describe("Pokeball page", function () {
   beforeEach(() => {
     const getPokeballs = rest.get(
       "http://localhost/api/pokeballs",
       async (req, res, ctx) => {
-        return res(
-          ctx.json([
-            { name: "Pika pika", id: "1" },
-            { name: "Bulba bulba", id: "2" },
-            { name: "Char char", id: "3" },
-          ] as Pokeball[])
-        );
+        return res(ctx.json(usedPokeballs));
       }
     );
 
@@ -83,7 +104,7 @@ describe("Pokeball page", function () {
       server.resetHandlers();
       server.use(
         rest.get("http://localhost/api/pokeballs", async (req, res, ctx) => {
-          return res(ctx.json([{ name: "Pika pika", id: "1" }] as Pokeball[]));
+          return res(ctx.json(usedPokeballs));
         })
       );
 
@@ -99,16 +120,30 @@ describe("Pokeball page", function () {
   });
 
   describe("Pokeball detail section", function () {
-    test("It shows active pokeball name", async function () {
+    test("It shows active pokeball details", async function () {
       render(<PokeballsPage />);
 
       const pokeballs = await waitFor(() => screen.getAllByTestId("pokeball"));
-      const activePokeball = pokeballs.find(
+      const activePokeballElement = pokeballs.find(
         (pokeball) => pokeball.getAttribute("aria-current") === "true"
+      );
+      const activePokeball = usedPokeballs.find(
+        (pokeball) => pokeball.name === activePokeballElement?.title
       );
 
       expect(screen.getByRole("heading", { level: 2 }).textContent).toEqual(
-        activePokeball?.title
+        activePokeballElement?.title
+      );
+
+      const pokemonsInPokeball = screen.getAllByTestId("pokeball-pokemon");
+      expect(pokemonsInPokeball).toHaveLength(2);
+      expect(pokemonsInPokeball[0]).toHaveAttribute(
+        "title",
+        activePokeball?.content[0].name
+      );
+      expect(within(pokemonsInPokeball[0]).getByRole("link")).toHaveAttribute(
+        "href",
+        `/pokemons/${activePokeball?.content[0].id}`
       );
     });
   });

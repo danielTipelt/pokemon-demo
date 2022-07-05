@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
@@ -59,6 +60,17 @@ export default function PokeballsPage() {
 
         <section className="flex flex-col">
           <h2>{activePokeball?.name}</h2>
+          <ul>
+            {activePokeball?.content?.map((pokemon) => (
+              <li
+                key={pokemon.id}
+                data-testid="pokeball-pokemon"
+                title={pokemon.name}
+              >
+                <Link href={`/pokemons/${pokemon.id}`}>{pokemon.name}</Link>
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
     </Layout>
