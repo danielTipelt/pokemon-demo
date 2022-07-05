@@ -30,6 +30,7 @@ const usedPokeballs: Pokeball[] = [
     ],
   },
 ];
+import mockRouter from "next-router-mock";
 
 describe("Pokeball page", function () {
   beforeEach(() => {
@@ -74,14 +75,13 @@ describe("Pokeball page", function () {
     });
 
     test("It shows new pokeball button", async function () {
-      render(<PokeballsPage />);
+      const { user } = render(<PokeballsPage />);
 
       const createPokeballItem = screen.getByTestId("create-pokeball");
       expect(createPokeballItem).toBeInTheDocument();
-      expect(within(createPokeballItem).getByRole("link")).toHaveAttribute(
-        "href",
-        "/pokeballs/new"
-      );
+      await user.click(within(createPokeballItem).getByRole("button"));
+
+      expect(mockRouter.asPath).toEqual("/pokeballs/new");
     });
 
     test("It shows loading state", async function () {

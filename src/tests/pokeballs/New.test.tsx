@@ -14,7 +14,7 @@ describe("Pokeball page", function () {
 
       const form = screen.getByRole("form");
       expect(
-        within(form).getByPlaceholderText("Pokéball name")
+        within(form).getByPlaceholderText("Pokeball name")
       ).toBeInTheDocument();
       expect(within(form).getByTestId("add-pokemon")).toBeInTheDocument();
       expect(form.querySelector('button[type="submit"]')).toBeInTheDocument();

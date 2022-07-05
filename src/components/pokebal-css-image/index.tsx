@@ -1,4 +1,4 @@
-import styles from "./PokebalCssImage.module.css";
+import styles from "./index.module.css";
 
 export function PokebalCssImage(props: { className?: string }) {
   return (

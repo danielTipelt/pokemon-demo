@@ -3,7 +3,7 @@ import {
   ErrorBoundary as ReactErrorBoundary,
   ErrorBoundaryProps,
 } from "react-error-boundary";
-import { ErrorComponent } from "./Error";
+import { ErrorComponent } from ".";
 
 export function ErrorBoundary(props: {
   error?: Error;

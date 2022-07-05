@@ -4,6 +4,8 @@ import { server } from "./src/msw/server";
 // Polyfill "window.fetch" used in the React component.
 import "whatwg-fetch";
 
+jest.mock("next/router", () => require("next-router-mock"));
+
 jest.mock("next/dynamic", () => ({
   __esModule: true,
   default: (...props) => {

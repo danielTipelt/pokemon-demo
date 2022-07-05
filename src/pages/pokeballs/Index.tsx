@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Router from "next/router";
 import { useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
+import { ListItemButton } from "../../components/list-item-button";
 import { Pokeball } from "../../types/Pokeball";
 
 export default function PokeballsPage() {
@@ -34,7 +36,12 @@ export default function PokeballsPage() {
           >
             <ul>
               <li data-testid="create-pokeball" title="Create new pokeball">
-                <Link href="/pokeballs/new">Add pokéball</Link>
+                <ListItemButton
+                  onClick={() => {
+                    Router.push("/pokeballs/new");
+                  }}
+                  image={"➕"}
+                />
               </li>
               {!pokeballs.length && isValidating ? (
                 <li>
