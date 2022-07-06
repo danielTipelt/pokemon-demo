@@ -1,8 +1,8 @@
-import PokeballsPage from "../../pages/pokeballs";
+import PokeballsPage from "../../../pages/pokeballs";
 import { rest } from "msw";
-import { Pokeball } from "../../types/Pokeball";
-import { server } from "../../msw/server";
-import { render, screen, waitFor, within } from "../test-utils";
+import { Pokeball } from "../../../types/Pokeball";
+import { server } from "../../../msw/server";
+import { render, screen, waitFor, within } from "../../test-utils";
 
 const usedPokeballs: Pokeball[] = [
   {

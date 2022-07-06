@@ -1,9 +1,9 @@
-import PokeballsPage from "../../pages/pokeballs";
+import PokeballsPage from "../../../pages/pokeballs";
 import { rest } from "msw";
-import { Pokeball } from "../../types/Pokeball";
-import { server } from "../../msw/server";
-import { render, screen, waitFor, within } from "../test-utils";
-import NewPokeballPage from "../../pages/pokeballs/New";
+import { Pokeball } from "../../../types/Pokeball";
+import { server } from "../../../msw/server";
+import { render, screen, waitFor, within } from "../../test-utils";
+import NewPokeballPage from "../../../pages/pokeballs/New";
 
 describe("Pokeball page", function () {
   describe("Pokeball list section", function () {
