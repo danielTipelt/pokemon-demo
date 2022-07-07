@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "../../test-utils";
+import { render, screen, waitFor, within } from "../../test-utils";
 import PokedexPage, { limit } from "../../../pages/pokedex";
 import { simplePokemons } from "../../../msw/db/simple-pokemons";
 
@@ -17,6 +17,18 @@ describe("Pokedex page", function () {
       "title",
       simplePokemons[0].name
     );
+  });
+
+  test("It leads to detail page", function () {
+    render(
+      <PokedexPage
+        firstPage={simplePokemons.slice(0, limit)}
+        totalCount={simplePokemons.length}
+      />
+    );
+    expect(
+      within(screen.getByTestId("pokemons")).getAllByRole("link")[0]
+    ).toHaveAttribute("href", `/pokedex/${simplePokemons[0].name}`);
   });
 
   test("Pagination works", async function () {

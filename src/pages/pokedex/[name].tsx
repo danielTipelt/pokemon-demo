@@ -44,12 +44,13 @@ const PokedexDetailPage: NextPage<PageProps> = (props) => {
 
 export const getServerSideProps: GetServerSideProps<
   PageProps,
-  { id: string }
+  { name: string }
 > = async (context) => {
-  const { id } = context.params || {};
+  const { name } = context.params || {};
 
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
   if (!res.ok) {
+    console.error(res.body);
     throw Error(
       "Fetch for the first pokemons page has failed. Last pokemons working version was served by Next.js"
     );

@@ -1,5 +1,6 @@
 import { SpriteWithName } from "@/components/sprite-with-name/SpriteWithName";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
@@ -41,10 +42,14 @@ const PokedexPage: NextPage<PageProps> = (props) => {
             <ul data-testid="pokemons">
               {currentPagePokemons.map((pokemon) => (
                 <li key={pokemon.name} title={pokemon.name}>
-                  <SpriteWithName
-                    detailsUrl={pokemon.url}
-                    name={pokemon.name}
-                  />
+                  <Link href={`/pokedex/${pokemon.name}`}>
+                    <a>
+                      <SpriteWithName
+                        detailsUrl={pokemon.url}
+                        name={pokemon.name}
+                      />
+                    </a>
+                  </Link>
                 </li>
               ))}
             </ul>
