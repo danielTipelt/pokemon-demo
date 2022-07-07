@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Pokemon } from "../../types/Pokemon";
+import { SimplePokemon } from "../../types/SimplePokemon";
 
 export default function NewPokeballPage() {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [pokemons, setPokemons] = useState<SimplePokemon[]>([]);
 
   return (
     <div>
@@ -12,7 +12,7 @@ export default function NewPokeballPage() {
         <ul>
           <li data-testid="add-pokemon">Add new Pokémon</li>
           {pokemons.map((pokemon) => (
-            <li key={pokemon.id}>{pokemon.name}</li>
+            <li key={pokemon.name}>{pokemon.name}</li>
           ))}
         </ul>
         <button type="submit">Create Pokéball</button>

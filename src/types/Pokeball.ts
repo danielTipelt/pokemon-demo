@@ -1,7 +1,7 @@
-import { Pokemon } from "./Pokemon";
+import { SimplePokemon } from "./SimplePokemon";
 
 export type Pokeball = {
   name: string;
-  content: Pokemon[];
+  content: SimplePokemon[];
   id: string;
 };

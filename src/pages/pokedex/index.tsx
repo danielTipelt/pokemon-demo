@@ -1,20 +1,21 @@
+import { SpriteWithName } from "@/components/sprite-with-name/SpriteWithName";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { useFetch } from "../api/fetch";
-import { ErrorBoundary } from "../components/error/ErrorBoundary";
-import { Spinner } from "../components/Spinner";
-import { PaginatedResource } from "../types/PaginatedResouce";
-import { Pokemon } from "../types/Pokemon";
+import { useFetch } from "../../api/fetch";
+import { ErrorBoundary } from "../../components/error/ErrorBoundary";
+import { Spinner } from "../../components/Spinner";
+import { PaginatedResource } from "../../types/PaginatedResouce";
+import { SimplePokemon } from "../../types/SimplePokemon";
 
-const limit = 20;
+export const limit = 5;
 
-type PageProps = { firstPage: Pokemon[]; totalCount: number };
+type PageProps = { firstPage: SimplePokemon[]; totalCount: number };
 
 const PokedexPage: NextPage<PageProps> = (props) => {
   const [offset, setOffset] = useState(0);
 
   const { data, isValidating, error, mutate } = useFetch<
-    PaginatedResource<Pokemon>
+    PaginatedResource<SimplePokemon>
   >(
     offset > 0
       ? `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
@@ -39,8 +40,11 @@ const PokedexPage: NextPage<PageProps> = (props) => {
           <>
             <ul data-testid="pokemons">
               {currentPagePokemons.map((pokemon) => (
-                <li key={pokemon.id} title={pokemon.name}>
-                  {pokemon.name}
+                <li key={pokemon.name} title={pokemon.name}>
+                  <SpriteWithName
+                    detailsUrl={pokemon.url}
+                    name={pokemon.name}
+                  />
                 </li>
               ))}
             </ul>
@@ -81,7 +85,7 @@ export async function getStaticProps() {
     );
   }
 
-  const data: PaginatedResource<Pokemon> = await res.json();
+  const data: PaginatedResource<SimplePokemon> = await res.json();
 
   return {
     props: { firstPage: data.results, totalCount: data.count } as PageProps,

@@ -1,17 +1,17 @@
 import { render, screen, waitFor, within } from "../test-utils";
-import PokedexPage from "../../pages/pokedex";
+import PokedexPage, { limit } from "../../pages/pokedex";
 import { rest } from "msw";
 import { server } from "../../msw/server";
-import { pokemons } from "../../msw/db/pokemons";
+import { simplePokemons } from "../../msw/db/simple-pokemons";
 import { PaginatedResource } from "../../types/PaginatedResouce";
-import { Pokemon } from "../../types/Pokemon";
+import { SimplePokemon } from "../../types/SimplePokemon";
 
 describe("Pokedex page", function () {
   test("It shows title and initial list of pokemons", function () {
     render(
       <PokedexPage
-        firstPage={pokemons.slice(0, 20)}
-        totalCount={pokemons.length}
+        firstPage={simplePokemons.slice(0, limit)}
+        totalCount={simplePokemons.length}
       />
     );
     expect(screen.getByRole("heading")).toBeInTheDocument();
@@ -19,15 +19,15 @@ describe("Pokedex page", function () {
     expect(screen.getByTestId("pokemons")).toBeInTheDocument();
     expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
       "title",
-      pokemons[0].name
+      simplePokemons[0].name
     );
   });
 
   test("Pagination works", async function () {
     const { user } = render(
       <PokedexPage
-        firstPage={pokemons.slice(0, 20)}
-        totalCount={pokemons.length}
+        firstPage={simplePokemons.slice(0, limit)}
+        totalCount={simplePokemons.length}
       />
     );
 
@@ -42,7 +42,7 @@ describe("Pokedex page", function () {
     await waitFor(() =>
       expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
         "title",
-        pokemons[20].name
+        simplePokemons[limit].name
       )
     );
 
@@ -50,7 +50,7 @@ describe("Pokedex page", function () {
     expect(screen.queryByTestId("spinner")).not.toBeInTheDocument(); // using cached data, so no asynchronicity
     expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
       "title",
-      pokemons[0].name
+      simplePokemons[0].name
     );
   });
 });

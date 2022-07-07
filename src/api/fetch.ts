@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { SWRConfiguration } from "swr";
 
 const fetcher = async (
   url: RequestInfo | URL,
@@ -14,6 +14,9 @@ const fetcher = async (
   return result;
 };
 
-export function useFetch<T>(url: RequestInfo | URL | null) {
-  return useSWR<T>(url, fetcher);
+export function useFetch<T>(
+  url: RequestInfo | URL | null,
+  options?: SWRConfiguration
+) {
+  return useSWR<T>(url, { fetcher: fetcher, ...options });
 }

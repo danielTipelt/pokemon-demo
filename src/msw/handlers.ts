@@ -1,9 +1,11 @@
 import { Console } from "console";
 import { DefaultBodyType, PathParams, rest } from "msw";
+import { Pokemon } from "src/types/Pokemon";
 import { PaginatedResource } from "../types/PaginatedResouce";
 import { Pokeball } from "../types/Pokeball";
-import { Pokemon } from "../types/Pokemon";
+import { SimplePokemon } from "../types/SimplePokemon";
 import { pokemons } from "./db/pokemons";
+import { simplePokemons } from "./db/simple-pokemons";
 
 export const handlers = [
   rest.get("http://localhost:3000/api/pokeballs", async (req, res, ctx) => {
@@ -15,7 +17,7 @@ export const handlers = [
       ] as Pokeball[])
     );
   }),
-  rest.get<DefaultBodyType, PathParams, PaginatedResource<Pokemon>>(
+  rest.get<DefaultBodyType, PathParams, PaginatedResource<SimplePokemon>>(
     "https://pokeapi.co/api/v2/pokemon",
     async (req, res, ctx) => {
       const offset = Number(req.url.searchParams.get("offset")) ?? 0;
@@ -23,11 +25,11 @@ export const handlers = [
 
       return res(
         ctx.json({
-          results: pokemons.slice(offset, offset + limit),
-          count: pokemons.length,
+          results: simplePokemons.slice(offset, offset + limit),
+          count: simplePokemons.length,
           next: `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${Math.min(
             offset + limit,
-            pokemons.length
+            simplePokemons.length
           )}`,
           previous: `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${Math.max(
             offset - limit,
@@ -35,6 +37,14 @@ export const handlers = [
           )}`,
         })
       );
+    }
+  ),
+  rest.get<DefaultBodyType, PathParams, Pokemon>(
+    "https://pokeapi.co/api/v2/pokemon/:id",
+    async (req, res, ctx) => {
+      const { id } = req.params;
+      const pokemon = pokemons.find((pokemon) => pokemon.id === Number(id));
+      return res(ctx.json(pokemon || pokemons[0]));
     }
   ),
 ];
