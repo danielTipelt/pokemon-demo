@@ -1,10 +1,6 @@
-import { render, screen, waitFor, within } from "../test-utils";
-import PokedexPage, { limit } from "../../pages/pokedex";
-import { rest } from "msw";
-import { server } from "../../msw/server";
-import { simplePokemons } from "../../msw/db/simple-pokemons";
-import { PaginatedResource } from "../../types/PaginatedResouce";
-import { SimplePokemon } from "../../types/SimplePokemon";
+import { render, screen, waitFor } from "../../test-utils";
+import PokedexPage, { limit } from "../../../pages/pokedex";
+import { simplePokemons } from "../../../msw/db/simple-pokemons";
 
 describe("Pokedex page", function () {
   test("It shows title and initial list of pokemons", function () {

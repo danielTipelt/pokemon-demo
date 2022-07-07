@@ -1,10 +1,9 @@
 import Image from "next/image";
 import { usePokemonData } from "src/hooks/usePokemonData";
+import { firstLetterCased } from "src/utils/firstLetterCased";
 
 export function SpriteWithName(props: { detailsUrl: string; name: string }) {
   const { data, error, isInitialLoading } = usePokemonData(props.detailsUrl);
-  const [firstLetter, ...restOfName] = props.name.split("");
-  const firstLetterName = [firstLetter.toUpperCase(), ...restOfName].join("");
 
   return (
     <div className="flex gap-2">
@@ -18,7 +17,7 @@ export function SpriteWithName(props: { detailsUrl: string; name: string }) {
           height={44}
         />
       )}
-      <span>{firstLetterName}</span>
+      <span>{firstLetterCased(props.name)}</span>
     </div>
   );
 }

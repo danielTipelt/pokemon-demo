@@ -15,13 +15,16 @@ export type Pokemon = {
   order: number;
   species: SimplePokemon;
   sprites: {
-    back_default?: string;
-    back_female?: string;
-    back_shiny?: string;
-    back_shiny_female?: string;
-    front_default?: string;
-    front_female?: string;
-    front_shiny?: string;
-    front_shiny_female?: string;
+    back_default: string | null;
+    back_female: string | null;
+    back_shiny: string | null;
+    back_shiny_female: string | null;
+    front_default: string | null;
+    front_female: string | null;
+    front_shiny: string | null;
+    front_shiny_female: string | null;
+    other: {
+      [key: string]: unknown;
+    };
   };
 };
