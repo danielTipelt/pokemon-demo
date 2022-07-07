@@ -14,6 +14,6 @@ const fetcher = async (
   return result;
 };
 
-export function useFetch<T>(url: RequestInfo | URL) {
+export function useFetch<T>(url: RequestInfo | URL | null) {
   return useSWR<T>(url, fetcher);
 }
