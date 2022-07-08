@@ -43,9 +43,9 @@ describe("Pokedex page", function () {
     expect(screen.getByTitle("Load next page")).toBeInTheDocument();
 
     await user.click(screen.getByTitle("Load next page"));
-    expect(screen.getByTestId("spinner")).toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
     await waitFor(() =>
-      expect(screen.queryByTestId("spinner")).not.toBeInTheDocument()
+      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument()
     );
     await waitFor(() =>
       expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
@@ -55,7 +55,7 @@ describe("Pokedex page", function () {
     );
 
     await user.click(screen.getByTitle("Load previous page"));
-    expect(screen.queryByTestId("spinner")).not.toBeInTheDocument(); // using cached data, so no asynchronicity
+    expect(screen.queryByRole("progressbar")).not.toBeInTheDocument(); // using cached data, so no asynchronicity
     expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
       "title",
       simplePokemons[0].name
