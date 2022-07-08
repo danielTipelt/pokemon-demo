@@ -1,5 +1,5 @@
 import { render, screen, within } from "@/tests/test-utils";
-import PokedexDetailPage from "@/pages/pokedex/[id]";
+import PokedexDetailPage from "@/pages/pokedex/[name]";
 import { pokemons } from "@/msw/db/pokemons";
 
 describe("Pokedex detail page", function () {
