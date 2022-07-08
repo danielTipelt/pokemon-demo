@@ -19,6 +19,11 @@ jest.mock("next/dynamic", () => ({
   },
 }));
 
+window.IntersectionObserver = jest.fn(function () {
+  this.observe = jest.fn();
+  this.disconnect = jest.fn();
+});
+
 /** MSW */
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
