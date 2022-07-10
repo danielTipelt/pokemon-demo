@@ -35,5 +35,18 @@ describe("New Pokeball page", function () {
     await waitFor(() =>
       expect(screen.getAllByTestId("pokemon-tile")[0]).toBeInTheDocument()
     );
+
+    let pokemonTiles = screen.getAllByTestId("pokemon-tile");
+    await user.click(within(pokemonTiles[0]).getByRole("button"));
+    await user.click(within(pokemonTiles[1]).getByRole("button"));
+
+    expect(within(pokemonTiles[0]).getByRole("button")).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    expect(within(pokemonTiles[1]).getByRole("button")).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
   });
 });

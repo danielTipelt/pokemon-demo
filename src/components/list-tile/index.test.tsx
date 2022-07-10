@@ -1,18 +1,19 @@
 import Image from "next/image";
-import { ListItemButton } from ".";
+import { ListTile, ListTileButton, ListTileControls } from ".";
 import { render, screen } from "../../tests/test-utils";
-import { ListItemButtonControl } from "./Control";
+import { ListTileControl } from "./Control";
 
-describe("List item button", function () {
+describe("List tile", function () {
   describe("Standalone button", function () {
     test("It renders with working action", async function () {
       const onClick = jest.fn();
 
       const { user } = render(
-        <ListItemButton
+        <ListTile
           image={<Image src="/pokebal-icon" alt="pokebal icon" layout="fill" />}
-          onClick={onClick}
-        />
+        >
+          <ListTile.Button onClick={onClick} />
+        </ListTile>
       );
 
       expect(screen.getByAltText("pokebal icon")).toBeInTheDocument();
@@ -26,11 +27,11 @@ describe("List item button", function () {
       const onDelete = jest.fn();
       const onEdit = jest.fn();
       const { user } = render(
-        <ListItemButton
+        <ListTile
           image={<Image src="/pokebal-icon" alt="pokebal icon" layout="fill" />}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
+        >
+          <ListTile.Controls onDelete={onDelete} onEdit={onEdit} />
+        </ListTile>
       );
       expect(screen.getByAltText("pokebal icon")).toBeInTheDocument();
       expect(screen.getAllByRole("button")).toHaveLength(2);

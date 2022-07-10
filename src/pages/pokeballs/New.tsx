@@ -1,7 +1,4 @@
 import { PokemonPicker } from "@/components/domain/pokemon-picker";
-import { ListItemButton } from "@/components/list-item-button";
-import { useState } from "react";
-import { SimplePokemon } from "../../types/SimplePokemon";
 
 export default function NewPokeballPage() {
   return (

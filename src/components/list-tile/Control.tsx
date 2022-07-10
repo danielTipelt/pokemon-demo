@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export function ListItemButtonControl(props: {
+export function ListTileControl(props: {
   onClick: () => void;
   children: ReactNode;
 }) {

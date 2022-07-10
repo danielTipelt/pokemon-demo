@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
-import { ListItemButton } from "../../components/list-item-button";
+import { ListTile, ListTileButton } from "../../components/list-tile";
 import { Pokeball } from "../../types/Pokeball";
 
 export default function PokeballsPage() {
@@ -36,12 +36,13 @@ export default function PokeballsPage() {
           >
             <ul>
               <li data-testid="create-pokeball" title="Create new pokeball">
-                <ListItemButton
-                  onClick={() => {
-                    Router.push("/pokeballs/new");
-                  }}
-                  image={"➕"}
-                />
+                <ListTile image={"➕"}>
+                  <ListTile.Button
+                    onClick={() => {
+                      Router.push("/pokeballs/new");
+                    }}
+                  />
+                </ListTile>
               </li>
               {!pokeballs.length && isValidating ? (
                 <li>

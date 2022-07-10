@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SimplePokemon } from "src/types/SimplePokemon";
-import { ListItemButton } from "../../list-item-button";
+import { ListTile, ListTileButton } from "@/components/list-tile";
 import { PokemonPickerModal } from "./Modal";
 
 export function PokemonPicker(props: {}) {
@@ -11,12 +11,13 @@ export function PokemonPicker(props: {}) {
     <section>
       <ul>
         <li title="Pick pokemon">
-          <ListItemButton
-            image={"➕"}
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          ></ListItemButton>
+          <ListTile image={"➕"}>
+            <ListTile.Button
+              onClick={() => {
+                setModalOpen(true);
+              }}
+            />
+          </ListTile>
         </li>
         {pokemons.map((pokemon) => (
           <li key={pokemon.name}></li>
