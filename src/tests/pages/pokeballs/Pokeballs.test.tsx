@@ -3,34 +3,26 @@ import { rest } from "msw";
 import { Pokeball } from "../../../types/Pokeball";
 import { server } from "../../../msw/server";
 import { render, screen, waitFor, within } from "../../test-utils";
+import mockRouter from "next-router-mock";
+import { simplePokemons } from "@/msw/db/simple-pokemons";
 
 const usedPokeballs: Pokeball[] = [
   {
     name: "Pika pika",
     id: "1",
-    content: [
-      { id: "1", name: "pikachu" },
-      { id: "2", name: "rajcu" },
-    ],
+    content: [simplePokemons[0], simplePokemons[1]],
   },
   {
     name: "Bulba bulba",
     id: "2",
-    content: [
-      { id: "1", name: "pikachu" },
-      { id: "2", name: "rajcu" },
-    ],
+    content: [simplePokemons[2], simplePokemons[3]],
   },
   {
     name: "Char char",
     id: "3",
-    content: [
-      { id: "1", name: "pikachu" },
-      { id: "2", name: "rajcu" },
-    ],
+    content: [simplePokemons[4], simplePokemons[5]],
   },
 ];
-import mockRouter from "next-router-mock";
 
 describe("Pokeball page", function () {
   beforeEach(() => {
@@ -154,7 +146,7 @@ describe("Pokeball page", function () {
       );
       expect(within(pokemonsInPokeball[0]).getByRole("link")).toHaveAttribute(
         "href",
-        `/pokemons/${activePokeball?.content[0].id}`
+        `/pokemons/${activePokeball?.content[0].name}`
       );
     });
   });

@@ -1,10 +1,10 @@
+import { LoadableContent } from "@/components/loadable-content";
+import { Pagination } from "@/components/pagination";
 import { SpriteWithName } from "@/components/sprite-with-name/SpriteWithName";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
-import { useFetch } from "../../api/fetch";
-import { ErrorBoundary } from "../../components/error/ErrorBoundary";
-import { Spinner } from "../../components/Spinner";
+import { usePokemons } from "src/hooks/usePokemons";
 import { PaginatedResource } from "../../types/PaginatedResouce";
 import { SimplePokemon } from "../../types/SimplePokemon";
 
@@ -15,67 +15,46 @@ type PageProps = { firstPage: SimplePokemon[]; totalCount: number };
 const PokedexPage: NextPage<PageProps> = (props) => {
   const [offset, setOffset] = useState(0);
 
-  const { data, isValidating, error, mutate } = useFetch<
-    PaginatedResource<SimplePokemon>
-  >(
-    offset > 0
-      ? `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-      : null
-  );
-
-  const currentPagePokemons = data?.results ?? props.firstPage;
-  const totalPokemonsInPokedex = data?.count ?? props.totalCount;
+  const { data, error, isValidating, mutate } = usePokemons({
+    offset,
+    limit,
+    fallbackData: { results: props.firstPage, count: props.totalCount },
+    revalidateOnMount: false,
+  });
 
   return (
     <div>
       <h1>Pokedex - get know your pokémons</h1>
-      <ErrorBoundary
+      <LoadableContent
+        isLoading={!data?.results && isValidating}
+        onReset={() => mutate()}
         error={error}
-        onReset={() => {
-          mutate();
-        }}
       >
-        {!data?.results && isValidating ? (
-          <Spinner />
-        ) : (
-          <>
-            <ul data-testid="pokemons">
-              {currentPagePokemons.map((pokemon) => (
-                <li key={pokemon.name} title={pokemon.name}>
-                  <Link href={`/pokedex/${pokemon.name}`}>
-                    <a>
-                      <SpriteWithName
-                        detailsUrl={pokemon.url}
-                        name={pokemon.name}
-                      />
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <button
-              title="Load previous page"
-              type="button"
-              onClick={() => {
-                setOffset((offset) => Math.max(offset - limit, 0));
-              }}
-            >
-              {"<"}
-            </button>
-            <button
-              title="Load next page"
-              type="button"
-              onClick={() => {
-                setOffset((offset) =>
-                  Math.min(offset + limit, totalPokemonsInPokedex)
-                );
-              }}
-            >
-              {">"}
-            </button>
-          </>
-        )}
-      </ErrorBoundary>
+        <>
+          <ul data-testid="pokemons">
+            {data?.results.map((pokemon) => (
+              <li key={pokemon.name} title={pokemon.name}>
+                <Link href={`/pokedex/${pokemon.name}`}>
+                  <a>
+                    <SpriteWithName
+                      detailsUrl={pokemon.url}
+                      name={pokemon.name}
+                    />
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Pagination
+            limit={limit}
+            total={data?.count || 0}
+            setOffset={setOffset}
+          >
+            <Pagination.PrevButton />
+            <Pagination.NextButton />
+          </Pagination>
+        </>
+      </LoadableContent>
     </div>
   );
 };

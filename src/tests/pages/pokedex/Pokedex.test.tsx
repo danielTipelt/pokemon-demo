@@ -3,13 +3,14 @@ import PokedexPage, { limit } from "../../../pages/pokedex";
 import { simplePokemons } from "../../../msw/db/simple-pokemons";
 
 describe("Pokedex page", function () {
-  test("It shows title and initial list of pokemons", function () {
+  test("It shows title and initial list of pokemons", async function () {
     render(
       <PokedexPage
         firstPage={simplePokemons.slice(0, limit)}
         totalCount={simplePokemons.length}
       />
     );
+
     expect(screen.getByRole("heading")).toBeInTheDocument();
 
     expect(screen.getByTestId("pokemons")).toBeInTheDocument();
@@ -19,13 +20,18 @@ describe("Pokedex page", function () {
     );
   });
 
-  test("It leads to detail page", function () {
+  test("It leads to detail page", async function () {
     render(
       <PokedexPage
         firstPage={simplePokemons.slice(0, limit)}
         totalCount={simplePokemons.length}
       />
     );
+
+    await waitFor(() =>
+      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument()
+    );
+
     expect(
       within(screen.getByTestId("pokemons")).getAllByRole("link")[0]
     ).toHaveAttribute("href", `/pokedex/${simplePokemons[0].name}`);
@@ -43,10 +49,7 @@ describe("Pokedex page", function () {
     expect(screen.getByTitle("Load next page")).toBeInTheDocument();
 
     await user.click(screen.getByTitle("Load next page"));
-    expect(screen.getByRole("progressbar")).toBeInTheDocument();
-    await waitFor(() =>
-      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument()
-    );
+
     await waitFor(() =>
       expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
         "title",
@@ -55,7 +58,6 @@ describe("Pokedex page", function () {
     );
 
     await user.click(screen.getByTitle("Load previous page"));
-    expect(screen.queryByRole("progressbar")).not.toBeInTheDocument(); // using cached data, so no asynchronicity
     expect(screen.getByTestId("pokemons").childNodes.item(0)).toHaveAttribute(
       "title",
       simplePokemons[0].name

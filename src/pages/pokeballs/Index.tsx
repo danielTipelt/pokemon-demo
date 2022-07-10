@@ -75,11 +75,11 @@ export default function PokeballsPage() {
           <ul>
             {activePokeball?.content?.map((pokemon) => (
               <li
-                key={pokemon.id}
+                key={pokemon.name}
                 data-testid="pokeball-pokemon"
                 title={pokemon.name}
               >
-                <Link href={`/pokemons/${pokemon.id}`}>{pokemon.name}</Link>
+                <Link href={`/pokemons/${pokemon.name}`}>{pokemon.name}</Link>
               </li>
             ))}
           </ul>
