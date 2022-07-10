@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev-unmocked": "NEXT_PUBLIC_API_MOCKING=disabled next dev",
+    "dev": "NEXT_PUBLIC_LOCAL_URL=http://localhost:3000 next dev",
+    "dev-unmocked": "NEXT_PUBLIC_API_MOCKING=disabled yarn dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
