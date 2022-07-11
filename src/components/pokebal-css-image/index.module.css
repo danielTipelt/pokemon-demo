@@ -3,7 +3,7 @@
 
   background: linear-gradient(
     180deg,
-    rgba(255, 0, 0, 1) 50%,
+    hsl(var(--p) / var(--tw-bg-opacity)) 50%,
     rgba(0, 0, 0, 1) 50%,
     rgba(255, 255, 255, 1) 50%
   );
