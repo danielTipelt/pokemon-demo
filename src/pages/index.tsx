@@ -12,7 +12,7 @@ const HomePage: NextPage = () => {
 
           <div>
             <h1 className="text-5xl font-bold">Make your pokéballs full</h1>
-            <p className="py-6">
+            <p className="py-6" data-testid="description">
               You can pick pokémons and prepare your own pokéballs in this app.
               Excited like hell, right?
             </p>

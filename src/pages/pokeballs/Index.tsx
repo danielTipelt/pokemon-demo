@@ -1,6 +1,7 @@
+import { Icon, PlusIcon } from "@/components/Icon";
 import Link from "next/link";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
@@ -27,67 +28,77 @@ export default function PokeballsPage() {
 
   return (
     <Layout>
-      <div className="flex gap-6 flex-column md:flex-row">
-        <h1>Choose pokéball</h1>
-        <section className="flex flex-col">
-          <ErrorBoundary
-            error={error}
-            onReset={() => {
-              mutate();
-            }}
-          >
-            <ul>
-              <li data-testid="create-pokeball" title="Create new pokeball">
-                <ListTile image={"➕"}>
-                  <ListTile.Button
-                    onClick={() => {
-                      Router.push("/pokeballs/new");
-                    }}
-                  />
-                </ListTile>
-              </li>
-              {!pokeballs.length && isValidating ? (
-                <li>
-                  <span data-testid="spinner">...loading</span>
-                </li>
-              ) : (
-                pokeballs.map((pokeball) => (
-                  <li
-                    key={pokeball.id}
-                    data-testid="pokeball"
-                    aria-current={pokeball === activePokeball}
-                    title={pokeball.name}
+      <div className="sm:container mx-auto flex gap-6 flex-col">
+        <h1 className="text-5xl font-bold mt-8">Choose pokéball</h1>
+        <div className="flex flex-col sm:flex-row gap-6">
+          <Section>
+            <ErrorBoundary
+              error={error}
+              onReset={() => {
+                mutate();
+              }}
+            >
+              <ul>
+                <li data-testid="create-pokeball" title="Create new pokeball">
+                  <ListTile
+                    className="text-white dark:text-black"
+                    image={<PlusIcon />}
                   >
-                    <button
-                      type="button"
+                    <ListTile.Button
                       onClick={() => {
-                        setActivePokeball(pokeball);
+                        Router.push("/pokeballs/new");
                       }}
-                    >
-                      {pokeball.name}
-                    </button>
+                    />
+                  </ListTile>
+                </li>
+                {!pokeballs.length && isValidating ? (
+                  <li>
+                    <span data-testid="spinner">...loading</span>
                   </li>
-                ))
-              )}
-            </ul>
-          </ErrorBoundary>
-        </section>
+                ) : (
+                  pokeballs.map((pokeball) => (
+                    <li key={pokeball.id} title={pokeball.name}>
+                      <ListTile
+                        className="text-white dark:text-black"
+                        image={<PlusIcon />}
+                        aria-current={pokeball === activePokeball}
+                        data-testid="pokeball"
+                      >
+                        <ListTile.Button
+                          onClick={() => {
+                            setActivePokeball(pokeball);
+                          }}
+                        />
+                      </ListTile>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </ErrorBoundary>
+          </Section>
 
-        <section className="flex flex-col">
-          <h2>{activePokeball?.name}</h2>
-          <ul>
-            {activePokeball?.pokemons?.map((pokemon) => (
-              <li
-                key={pokemon.name}
-                data-testid="pokeball-pokemon"
-                title={pokemon.name}
-              >
-                <Link href={`/pokemons/${pokemon.name}`}>{pokemon.name}</Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+          <Section>
+            <h2>{activePokeball?.name}</h2>
+            <ul>
+              {activePokeball?.pokemons?.map((pokemon) => (
+                <li
+                  key={pokemon.name}
+                  data-testid="pokeball-pokemon"
+                  title={pokemon.name}
+                >
+                  <Link href={`/pokemons/${pokemon.name}`}>{pokemon.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        </div>
       </div>
     </Layout>
   );
 }
+
+const Section = (props: { children: ReactNode }) => (
+  <section className="flex flex-col flex-1 rounded bg-gray-200 dark:bg-gray-700 p-4">
+    {props.children}
+  </section>
+);

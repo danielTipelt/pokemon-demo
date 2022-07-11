@@ -6,14 +6,18 @@ export function ListTile(props: {
   selected?: boolean;
   children: ReactNode;
   image: ReactNode;
+  className?: string;
 }) {
   return (
     <context.Provider value={{ isSelected: props.selected || false }}>
+      {/* TODO: use classnames lib */}
       <div
-        className={`btn relative ${props.selected ? "btn-active" : ""}`}
+        className={`w-11 h-11 btn relative ${
+          props.selected ? "btn-active" : ""
+        } ${props.className}`}
         aria-selected={props.selected}
       >
-        <div className="absolute w-full h-full p-1 flex items-center justify-center -z-10">
+        <div className="absolute w-full h-full p-1 flex items-center justify-center">
           {props.image}
         </div>
         {props.children}
