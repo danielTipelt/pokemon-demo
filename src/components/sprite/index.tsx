@@ -9,10 +9,11 @@ export function Sprite(props: { detailsUrl: string; name: string }) {
 
   return (
     <Image
-      src={data?.sprites.front_default || ""}
+      src={data?.sprites?.front_default || ""}
       alt={`${props.name} image`}
       width={44}
       height={44}
+      title={props.name}
     />
   );
 }

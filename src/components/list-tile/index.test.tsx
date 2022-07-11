@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { ListTile, ListTileButton, ListTileControls } from ".";
+import { ListTile } from ".";
 import { render, screen } from "../../tests/test-utils";
-import { ListTileControl } from "./Control";
 
 describe("List tile", function () {
   describe("Standalone button", function () {

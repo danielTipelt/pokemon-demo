@@ -1,15 +1,30 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SimplePokemon } from "src/types/SimplePokemon";
-import { ListTile, ListTileButton } from "@/components/list-tile";
+import { ListTile } from "@/components/list-tile";
 import { PokemonPickerModal } from "./Modal";
+import { Sprite } from "@/components/sprite";
+import { toggleItemInArray } from "src/utils/toggleItemInArray";
 
-export function PokemonPicker(props: {}) {
+export function PokemonPicker(props: {
+  onChange: (pokemons: SimplePokemon[]) => void;
+  initialPokemons?: SimplePokemon[];
+}) {
+  const { onChange } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [pokemons, setPokemons] = useState<SimplePokemon[]>([]);
+  const { current: initialPokemons = [] } = useRef(props.initialPokemons);
+
+  const handlePokemonsChange = useCallback(
+    (pokemons: SimplePokemon[]) => {
+      setPokemons(pokemons);
+      onChange(pokemons);
+    },
+    [onChange]
+  );
 
   return (
     <section>
-      <ul>
+      <ul data-testid="selected-pokemons">
         <li title="Pick pokemon">
           <ListTile image={"➕"}>
             <ListTile.Button
@@ -19,15 +34,28 @@ export function PokemonPicker(props: {}) {
             />
           </ListTile>
         </li>
-        {pokemons.map((pokemon) => (
-          <li key={pokemon.name}></li>
+        {(pokemons.length ? pokemons : initialPokemons).map((pokemon) => (
+          <li key={pokemon.name} data-testid="pokeball-pokemon">
+            <ListTile
+              image={<Sprite detailsUrl={pokemon.url} name={pokemon.name} />}
+            >
+              <ListTile.Controls
+                onDelete={() => {
+                  handlePokemonsChange(toggleItemInArray(pokemons, pokemon));
+                }}
+              />
+            </ListTile>
+          </li>
         ))}
       </ul>
       <PokemonPickerModal
-        alreadySelectedPokemons={[]}
+        alreadySelectedPokemons={pokemons}
         modalOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        onSubmit={() => {}}
+        onConfirm={(pokemons) => {
+          handlePokemonsChange(pokemons);
+          setModalOpen(false);
+        }}
       />
     </section>
   );

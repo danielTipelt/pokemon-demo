@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
-import { ListTile, ListTileButton } from "../../components/list-tile";
+import { ListTile } from "../../components/list-tile";
 import { Pokeball } from "../../types/Pokeball";
 
 export default function PokeballsPage() {
@@ -13,7 +13,9 @@ export default function PokeballsPage() {
     error,
     isValidating,
     mutate,
-  } = useFetch<Pokeball[]>("/api/pokeballs");
+  } = useFetch<Pokeball[]>(
+    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`
+  );
 
   const [activePokeball, setActivePokeball] = useState<Pokeball | null>(null);
 
@@ -74,7 +76,7 @@ export default function PokeballsPage() {
         <section className="flex flex-col">
           <h2>{activePokeball?.name}</h2>
           <ul>
-            {activePokeball?.content?.map((pokemon) => (
+            {activePokeball?.pokemons?.map((pokemon) => (
               <li
                 key={pokemon.name}
                 data-testid="pokeball-pokemon"

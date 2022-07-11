@@ -2,7 +2,7 @@ import PokeballsPage from "../../../pages/pokeballs";
 import { rest } from "msw";
 import { Pokeball } from "../../../types/Pokeball";
 import { server } from "../../../msw/server";
-import { render, screen, waitFor, within } from "../../test-utils";
+import { render, screen, waitFor, within, fireEvent } from "../../test-utils";
 import mockRouter from "next-router-mock";
 import { simplePokemons } from "@/msw/db/simple-pokemons";
 
@@ -10,24 +10,24 @@ const usedPokeballs: Pokeball[] = [
   {
     name: "Pika pika",
     id: "1",
-    content: [simplePokemons[0], simplePokemons[1]],
+    pokemons: [simplePokemons[0], simplePokemons[1]],
   },
   {
     name: "Bulba bulba",
     id: "2",
-    content: [simplePokemons[2], simplePokemons[3]],
+    pokemons: [simplePokemons[2], simplePokemons[3]],
   },
   {
     name: "Char char",
     id: "3",
-    content: [simplePokemons[4], simplePokemons[5]],
+    pokemons: [simplePokemons[4], simplePokemons[5]],
   },
 ];
 
 describe("Pokeball page", function () {
   beforeEach(() => {
     const getPokeballs = rest.get(
-      "http://localhost/api/pokeballs",
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
       async (req, res, ctx) => {
         return res(ctx.json(usedPokeballs));
       }
@@ -89,12 +89,15 @@ describe("Pokeball page", function () {
 
     test("It shows error state", async function () {
       server.use(
-        rest.get("http://localhost/api/pokeballs", async (req, res, ctx) => {
-          return res(
-            ctx.status(400),
-            ctx.json({ errorMessage: "Unknown test error" })
-          );
-        })
+        rest.get(
+          `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
+          async (req, res, ctx) => {
+            return res(
+              ctx.status(400),
+              ctx.json({ errorMessage: "Unknown test error" })
+            );
+          }
+        )
       );
 
       const { user } = render(<PokeballsPage />);
@@ -106,9 +109,12 @@ describe("Pokeball page", function () {
 
       server.resetHandlers();
       server.use(
-        rest.get("http://localhost/api/pokeballs", async (req, res, ctx) => {
-          return res(ctx.json(usedPokeballs));
-        })
+        rest.get(
+          `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
+          async (req, res, ctx) => {
+            return res(ctx.json(usedPokeballs));
+          }
+        )
       );
 
       const retryButton = screen.getByRole("alert").querySelector("button");
@@ -142,11 +148,11 @@ describe("Pokeball page", function () {
       expect(pokemonsInPokeball).toHaveLength(2);
       expect(pokemonsInPokeball[0]).toHaveAttribute(
         "title",
-        activePokeball?.content[0].name
+        activePokeball?.pokemons[0].name
       );
       expect(within(pokemonsInPokeball[0]).getByRole("link")).toHaveAttribute(
         "href",
-        `/pokemons/${activePokeball?.content[0].name}`
+        `/pokemons/${activePokeball?.pokemons[0].name}`
       );
     });
   });

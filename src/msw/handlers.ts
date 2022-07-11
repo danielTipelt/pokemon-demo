@@ -6,17 +6,16 @@ import { SimplePokemon } from "../types/SimplePokemon";
 import { pokemons } from "./db/pokemons";
 import { simplePokemons } from "./db/simple-pokemons";
 import { Blob } from "buffer";
+import { Data } from "@/pages/pokeballs/new";
+import { pokeballs } from "./db/pokeballs";
 
 export const handlers = [
-  rest.get("http://localhost:3000/api/pokeballs", async (req, res, ctx) => {
-    return res(
-      ctx.json([
-        { name: "Pika pika", id: "1" },
-        { name: "Bulba bulba", id: "2" },
-        { name: "Char char", id: "3" },
-      ] as Pokeball[])
-    );
-  }),
+  rest.get(
+    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
+    async (req, res, ctx) => {
+      return res(ctx.json(pokeballs));
+    }
+  ),
   rest.get<DefaultBodyType, PathParams, PaginatedResource<SimplePokemon>>(
     "https://pokeapi.co/api/v2/pokemon",
     async (req, res, ctx) => {
@@ -59,6 +58,20 @@ export const handlers = [
         ctx.set("Content-Type", "image/jpeg"),
         ctx.body(imageBuffer as any)
       );
+    }
+  ),
+  rest.post<Data, PathParams, Pokeball>(
+    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
+    async (req, res, ctx) => {
+      const { pokemons, name } = req.body;
+      const pokeball = {
+        pokemons,
+        name,
+        id: String(pokeballs.length + 1),
+      };
+      pokeballs.push(pokeball);
+
+      return res(ctx.status(201), ctx.json(pokeball));
     }
   ),
 ];

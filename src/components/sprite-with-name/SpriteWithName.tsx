@@ -11,7 +11,7 @@ export function SpriteWithName(props: { detailsUrl: string; name: string }) {
         <div title="Image is being loaded" className="w-11 h-11" />
       ) : (
         <Image
-          src={data?.sprites.front_default || ""}
+          src={data?.sprites?.front_default || ""}
           alt={`${props.name} image`}
           width={44}
           height={44}

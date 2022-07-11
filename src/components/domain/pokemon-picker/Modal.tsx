@@ -1,4 +1,4 @@
-import { ListTile, ListTileButton } from "@/components/list-tile";
+import { ListTile } from "@/components/list-tile";
 import { LoadableContent } from "@/components/loadable-content";
 import { Pagination } from "@/components/pagination";
 import { Sprite } from "@/components/sprite";
@@ -6,11 +6,12 @@ import { SimplePokemon } from "@/types/SimplePokemon";
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
 import { usePokemons } from "src/hooks/usePokemons";
+import { toggleItemInArray } from "src/utils/toggleItemInArray";
 
 export function PokemonPickerModal(props: {
   modalOpen: boolean;
   onClose: () => void;
-  onSubmit: (pokemons: SimplePokemon[]) => void;
+  onConfirm: (pokemons: SimplePokemon[]) => void;
   alreadySelectedPokemons: SimplePokemon[];
 }) {
   const [offset, setOffset] = useState(0);
@@ -54,19 +55,15 @@ export function PokemonPickerModal(props: {
           <Pagination.NextButton />
         </Pagination>
       </LoadableContent>
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => {
+          props.onConfirm(selectedPokemons);
+        }}
+      >
+        Confirm
+      </button>
     </Dialog>
   );
-}
-
-function toggleItemInArray(array: any[], item: any) {
-  const index = array.indexOf(item);
-  const newArray = [...array];
-
-  if (index === -1) {
-    newArray.push(item);
-  } else {
-    newArray.splice(index, 1);
-  }
-
-  return newArray;
 }

@@ -8,11 +8,11 @@ type PageProps = { pokemon: Pokemon };
 const PokedexDetailPage: NextPage<PageProps> = (props) => {
   return (
     <div>
-      <h1>{firstLetterCased(props.pokemon.name)}</h1>
+      <h1>{firstLetterCased(props.pokemon.name || "")}</h1>
 
       <span>Forms</span>
       <ul data-testid="forms">
-        {props.pokemon.forms.map((form) => (
+        {props.pokemon.forms?.map((form) => (
           <li key={form.name}>{form.name}</li>
         ))}
       </ul>
@@ -23,7 +23,7 @@ const PokedexDetailPage: NextPage<PageProps> = (props) => {
           <Image
             width={200}
             height={200}
-            src={props.pokemon.sprites.front_default || ""}
+            src={props.pokemon.sprites?.front_default || ""}
             alt={`${props.pokemon.name}'s front preview`}
             title="Front view"
           />
@@ -32,7 +32,7 @@ const PokedexDetailPage: NextPage<PageProps> = (props) => {
           <Image
             width={200}
             height={200}
-            src={props.pokemon.sprites.back_default || ""}
+            src={props.pokemon.sprites?.back_default || ""}
             alt={`${props.pokemon.name}'s back preview`}
             title="Back view"
           />

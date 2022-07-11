@@ -1,32 +1,8 @@
 import { Pokeball } from "../../types/Pokeball";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const userPokeballs: Pokeball[] = [
-  {
-    name: "Pika pika",
-    id: "1",
-    content: [
-      { id: "1", name: "pikachu" },
-      { id: "2", name: "rajcu" },
-    ],
-  },
-  {
-    name: "Bulba bulba",
-    id: "2",
-    content: [
-      { id: "1", name: "pikachu" },
-      { id: "2", name: "rajcu" },
-    ],
-  },
-  {
-    name: "Char char",
-    id: "3",
-    content: [
-      { id: "1", name: "pikachu" },
-      { id: "2", name: "rajcu" },
-    ],
-  },
-];
+// this should serve as an API when mocking is turned off
+const userPokeballs: Pokeball[] = [];
 
 export default function userPokeballsHandler(
   req: NextApiRequest,
@@ -63,12 +39,13 @@ export default function userPokeballsHandler(
     }
     case "POST": {
       const newPokeballData = req.body as Omit<Pokeball, "id">;
-
-      userPokeballs.push({
+      const newPokeball = {
         id: userPokeballs.length.toString(),
         ...newPokeballData,
-      });
-      res.status(200).json(userPokeballs);
+      };
+      userPokeballs.push(newPokeball);
+      res.status(201).json(newPokeball);
+      break;
     }
     default:
       res.setHeader("Allow", ["GET", "PUT", "POST"]);

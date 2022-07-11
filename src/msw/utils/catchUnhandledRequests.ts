@@ -1,14 +1,12 @@
 import { RestRequest } from "msw";
 
-const safeUrlStarts = [
-  "/_next",
-  "/__nextjs_original-stack-frame",
-  "/site.webmanifest",
-  "/favicon.ico",
-];
-
 export function catchUnhandledRequests(req: RestRequest) {
-  if (safeUrlStarts.some((url) => req.url.pathname.startsWith(url))) {
+  if (req.url.href.startsWith("http://localhost:3000/api")) {
+    throw Error(`Unhandled request:
+  ${req.url.pathname}`);
+  }
+
+  if (req.url.host === "localhost:3000") {
     return;
   }
 
