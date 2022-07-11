@@ -41,7 +41,7 @@ export default function NewPokeballPage() {
         <input placeholder="Pokeball name" {...register("name")}></input>
         <Controller
           control={control}
-          // rules={{ required: true }}
+          rules={{ required: true }}
           name="pokemons"
           render={({ field }) => (
             <PokemonPicker

@@ -7,7 +7,8 @@
     "dev-unmocked": "NEXT_PUBLIC_API_MOCKING=disabled yarn dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint & tsc --noEmit",
+    "lint": "next lint",
+    "check": "yarn lint & tsc --noEmit",
     "test": "jest"
   },
   "dependencies": {
