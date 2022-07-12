@@ -5,6 +5,7 @@ import { pokemons } from "@/msw/db/pokemons";
 import Link from "next/link";
 import Router from "next/router";
 import { ReactNode, useEffect, useState } from "react";
+import { firstLetterCased } from "src/utils/firstLetterCased";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
@@ -97,7 +98,7 @@ export default function PokeballsPage() {
           <Section>
             <span className="text-xs text-start">Pokéball</span>
             <h2 className="text-4xl mb-4 mt-2">{activePokeball?.name}</h2>
-            <ul>
+            <ul className="flex flex-col gap-2">
               {activePokeball?.pokemons?.map((pokemon) => (
                 <li
                   key={pokemon.name}
@@ -105,15 +106,22 @@ export default function PokeballsPage() {
                   title={pokemon.name}
                 >
                   <Link href={`/pokemons/${pokemon.name}`}>
-                    <LabeledButton
-                      id={`pokeball-detail-${pokemon.name}`}
-                      className="flex-row"
-                    >
-                      <LabeledButton.Button>
-                        <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
-                      </LabeledButton.Button>
-                      <span className="text-xl font-bold">{pokemon.name}</span>
-                    </LabeledButton>
+                    <a>
+                      <LabeledButton
+                        id={`pokeball-detail-${pokemon.name}`}
+                        className="flex flex-row items-center gap-4"
+                      >
+                        <LabeledButton.Button>
+                          <Sprite
+                            detailsUrl={pokemon.url}
+                            name={pokemon.name}
+                          />
+                        </LabeledButton.Button>
+                        <span className="text-xl font-bold">
+                          {firstLetterCased(pokemon.name)}
+                        </span>
+                      </LabeledButton>
+                    </a>
                   </Link>
                 </li>
               ))}
