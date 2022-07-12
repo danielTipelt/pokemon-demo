@@ -105,7 +105,7 @@ export default function PokeballsPage() {
                   data-testid="pokeball-pokemon"
                   title={pokemon.name}
                 >
-                  <Link href={`/pokemons/${pokemon.name}`}>
+                  <Link href={`/pokedex/${pokemon.name}`}>
                     <a>
                       <LabeledButton
                         id={`pokeball-detail-${pokemon.name}`}

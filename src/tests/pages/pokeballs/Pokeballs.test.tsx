@@ -154,7 +154,7 @@ describe("Pokeball page", function () {
       );
       expect(within(pokemonsInPokeball[0]).getByRole("link")).toHaveAttribute(
         "href",
-        `/pokemons/${activePokeball?.pokemons[0].name}`
+        `/pokedex/${activePokeball?.pokemons[0].name}`
       );
     });
   });
