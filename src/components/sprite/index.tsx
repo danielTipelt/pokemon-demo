@@ -8,12 +8,13 @@ export function Sprite(props: { detailsUrl: string; name: string }) {
   }
 
   return (
-    <Image
-      src={data?.sprites?.front_default || ""}
-      alt={`${props.name} image`}
-      width={44}
-      height={44}
-      title={props.name}
-    />
+    <div className="relative w-full h-full">
+      <Image
+        src={data?.sprites?.front_default || ""}
+        alt={`${props.name} image`}
+        layout="fill"
+        title={props.name}
+      />
+    </div>
   );
 }

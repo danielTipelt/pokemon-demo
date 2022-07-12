@@ -58,7 +58,9 @@ describe("Pokeball page", function () {
         screen.getAllByTestId("pokeball")
       );
 
-      expect(activePokeball).toHaveAttribute("aria-current", "true");
+      await waitFor(() =>
+        expect(activePokeball).toHaveAttribute("aria-current", "true")
+      );
       expect(nextPokeball).not.toHaveAttribute("aria-current", "true");
 
       await user.click(within(nextPokeball).getByRole("button"));

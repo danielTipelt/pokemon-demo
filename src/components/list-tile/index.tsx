@@ -29,10 +29,11 @@ export function ListTile(props: {
 ListTile.Button = ListTileButton;
 ListTile.Controls = ListTileControls;
 
-function ListTileButton(props: { onClick(): void }) {
+function ListTileButton(props: { onClick(): void; id?: string }) {
   const { isSelected } = useContext(context);
   return (
     <button
+      id={props.id}
       type="button"
       className="w-full h-full absolute"
       onClick={props.onClick}

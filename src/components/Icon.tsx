@@ -8,6 +8,8 @@ export const PlusIcon = () => {
       y="0px"
       viewBox="0 0 52 52"
       fill="currentColor"
+      height="1em"
+      width="1em"
       xmlSpace="preserve"
     >
       <path

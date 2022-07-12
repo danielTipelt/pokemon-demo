@@ -48,6 +48,6 @@
     "workerDirectory": "public"
   },
   "volta": {
-    "node": "17.9.1"
+    "node": "18.5.0"
   }
 }

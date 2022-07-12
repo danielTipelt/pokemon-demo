@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Layout } from "../components/Layout";
-import { PokebalCssImage } from "../components/pokebal-css-image";
+import { PokebalCssImage } from "../components/domain/pokebal-css-image";
 
 const HomePage: NextPage = () => {
   return (

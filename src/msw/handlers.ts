@@ -16,6 +16,19 @@ export const handlers = [
       return res(ctx.json(pokeballs));
     }
   ),
+  rest.post<string, PathParams, Pokeball>(
+    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
+    async (req, res, ctx) => {
+      const { pokemons, name } = JSON.parse(req.body);
+      const pokeball = {
+        pokemons,
+        name,
+        id: String(pokeballs.length + 1),
+      };
+      pokeballs.push(pokeball);
+      return res(ctx.status(201), ctx.json(pokeball));
+    }
+  ),
   rest.get<DefaultBodyType, PathParams, PaginatedResource<SimplePokemon>>(
     "https://pokeapi.co/api/v2/pokemon",
     async (req, res, ctx) => {
@@ -58,20 +71,6 @@ export const handlers = [
         ctx.set("Content-Type", "image/jpeg"),
         ctx.body(imageBuffer as any)
       );
-    }
-  ),
-  rest.post<Data, PathParams, Pokeball>(
-    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
-    async (req, res, ctx) => {
-      const { pokemons, name } = req.body;
-      const pokeball = {
-        pokemons,
-        name,
-        id: String(pokeballs.length + 1),
-      };
-      pokeballs.push(pokeball);
-
-      return res(ctx.status(201), ctx.json(pokeball));
     }
   ),
 ];

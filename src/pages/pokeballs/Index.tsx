@@ -1,11 +1,13 @@
 import { Icon, PlusIcon } from "@/components/Icon";
+import { LabeledButton } from "@/components/LabeledButton";
+import { Sprite } from "@/components/sprite";
+import { pokemons } from "@/msw/db/pokemons";
 import Link from "next/link";
 import Router from "next/router";
-import { FC, ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useFetch } from "../../api/fetch";
 import { ErrorBoundary } from "../../components/error/ErrorBoundary";
 import { Layout } from "../../components/Layout";
-import { ListTile } from "../../components/list-tile";
 import { Pokeball } from "../../types/Pokeball";
 
 export default function PokeballsPage() {
@@ -28,9 +30,9 @@ export default function PokeballsPage() {
 
   return (
     <Layout>
-      <div className="sm:container mx-auto flex gap-6 flex-col">
+      <div className="sm:container mx-4 sm:mx-auto flex gap-6 flex-col">
         <h1 className="text-5xl font-bold mt-8">Choose pokéball</h1>
-        <div className="flex flex-col sm:flex-row gap-6">
+        <div className="flex flex-col sm:flex-row gap-6 items-start">
           <Section>
             <ErrorBoundary
               error={error}
@@ -38,18 +40,22 @@ export default function PokeballsPage() {
                 mutate();
               }}
             >
-              <ul>
-                <li data-testid="create-pokeball" title="Create new pokeball">
-                  <ListTile
-                    className="text-white dark:text-black"
-                    image={<PlusIcon />}
+              <ul className="flex flex-row flex-wrap gap-4">
+                <li>
+                  <LabeledButton
+                    id="create-pokeball-button"
+                    data-testid="create-pokeball"
+                    title="Create new pokeball"
                   >
-                    <ListTile.Button
+                    <LabeledButton.Label>Create</LabeledButton.Label>
+                    <LabeledButton.Button
                       onClick={() => {
                         Router.push("/pokeballs/new");
                       }}
-                    />
-                  </ListTile>
+                    >
+                      <PlusIcon />
+                    </LabeledButton.Button>
+                  </LabeledButton>
                 </li>
                 {!pokeballs.length && isValidating ? (
                   <li>
@@ -57,19 +63,30 @@ export default function PokeballsPage() {
                   </li>
                 ) : (
                   pokeballs.map((pokeball) => (
-                    <li key={pokeball.id} title={pokeball.name}>
-                      <ListTile
-                        className="text-white dark:text-black"
-                        image={<PlusIcon />}
-                        aria-current={pokeball === activePokeball}
+                    <li key={pokeball.id}>
+                      <LabeledButton
                         data-testid="pokeball"
+                        id={`${pokeball.name}-button`}
+                        active={pokeball === activePokeball}
+                        title={pokeball.name}
                       >
-                        <ListTile.Button
+                        <LabeledButton.Label>
+                          {pokeball.name}
+                        </LabeledButton.Label>
+                        <LabeledButton.Button
+                          variant="btn-circle"
                           onClick={() => {
                             setActivePokeball(pokeball);
                           }}
-                        />
-                      </ListTile>
+                        >
+                          {!!pokeball.pokemons[0]?.url && (
+                            <Sprite
+                              detailsUrl={pokeball.pokemons[0].url}
+                              name={pokeball.pokemons[0].name}
+                            />
+                          )}
+                        </LabeledButton.Button>
+                      </LabeledButton>
                     </li>
                   ))
                 )}
@@ -78,7 +95,8 @@ export default function PokeballsPage() {
           </Section>
 
           <Section>
-            <h2>{activePokeball?.name}</h2>
+            <span className="text-xs text-start">Pokéball</span>
+            <h2 className="text-4xl mb-4 mt-2">{activePokeball?.name}</h2>
             <ul>
               {activePokeball?.pokemons?.map((pokemon) => (
                 <li
@@ -86,7 +104,17 @@ export default function PokeballsPage() {
                   data-testid="pokeball-pokemon"
                   title={pokemon.name}
                 >
-                  <Link href={`/pokemons/${pokemon.name}`}>{pokemon.name}</Link>
+                  <Link href={`/pokemons/${pokemon.name}`}>
+                    <LabeledButton
+                      id={`pokeball-detail-${pokemon.name}`}
+                      className="flex-row"
+                    >
+                      <LabeledButton.Button>
+                        <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
+                      </LabeledButton.Button>
+                      <span className="text-xl font-bold">{pokemon.name}</span>
+                    </LabeledButton>
+                  </Link>
                 </li>
               ))}
             </ul>
