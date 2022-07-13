@@ -48,6 +48,7 @@ export default function PokeballsPage() {
                   <LabeledButton data-testid="new-pokeball-button">
                     <LabeledButton.Label>Create</LabeledButton.Label>
                     <LabeledButton.Button
+                      shape="btn-circle"
                       title="Create new pokeball"
                       onClick={() => {
                         Router.push("/pokeballs/new");
@@ -107,7 +108,7 @@ export default function PokeballsPage() {
                 >
                   <Link href={`/pokedex/${pokemon.name}`}>
                     <a>
-                      <LabeledButton className="flex flex-row items-center gap-4">
+                      <LabeledButton direction="row">
                         <LabeledButton.Button>
                           <Sprite
                             detailsUrl={pokemon.url}

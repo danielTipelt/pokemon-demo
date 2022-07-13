@@ -23,7 +23,7 @@ export function Pagination(props: {
       }}
     >
       <div
-        className={classnames(`flex gap-4 mt-8`, className)}
+        className={classnames(`btn-group`, className)}
         data-testid="pagination"
       >
         {children}
@@ -39,7 +39,7 @@ function PrevButton(props: { className?: string }) {
   const { onPrev } = useContext(context);
   return (
     <button
-      className={classnames(`btn btn-secondary`, props.className)}
+      className={classnames(`btn`, props.className)}
       title="Load previous page"
       type="button"
       onClick={onPrev}
@@ -52,7 +52,7 @@ function NextButton(props: { className?: string }) {
   const { onNext } = useContext(context);
   return (
     <button
-      className={classnames(`btn btn-secondary`, props.className)}
+      className={classnames(`btn`, props.className)}
       title="Load next page"
       type="button"
       onClick={onNext}

@@ -1,22 +1,48 @@
-import { createContext, HTMLProps, useContext, useMemo } from "react";
+import {
+  createContext,
+  HTMLProps,
+  ReactNode,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { nanoid } from "nanoid";
 import classnames from "classnames";
 
-const context = createContext<{ id: string; active?: boolean }>({ id: "" });
+const context = createContext<{
+  id: string;
+  active?: boolean;
+  hovered?: boolean;
+}>({ id: "" });
 
 export function LabeledButton({
   active,
   className,
   children,
+  direction = "column",
   ...rest
 }: {
   active?: boolean;
+  direction?: "row" | "column";
 } & HTMLProps<HTMLDivElement>) {
   const id = useMemo(() => nanoid(), []);
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <context.Provider value={{ id, active }}>
-      <div className={`${className ?? "flex flex-col"}`} {...rest}>
+    <context.Provider value={{ id, active, hovered }}>
+      <div
+        className={classnames("flex flex-wrap items-center", {
+          "flex-col": direction === "column",
+          "flex-row gap-4": direction === "row",
+        })}
+        onMouseOver={() => {
+          setHovered(true);
+        }}
+        onMouseLeave={() => {
+          setHovered(false);
+        }}
+        {...rest}
+      >
         {children}
       </div>
     </context.Provider>
@@ -25,14 +51,20 @@ export function LabeledButton({
 
 LabeledButton.Label = function Label({
   className,
+  autohide,
   ...rest
-}: HTMLProps<HTMLLabelElement>) {
-  const { id } = useContext(context);
+}: HTMLProps<HTMLLabelElement> & { autohide?: boolean }) {
+  const { id, hovered } = useContext(context);
+
   return (
     <label
       htmlFor={id}
       className={classnames(
-        `cursor-pointer text-center text-ellipsis whitespace-nowrap overflow-hidden max-w-[4rem]`,
+        `cursor-pointer text-center`,
+        "transition-all duration-200 ease-in-out translate-origin-center",
+        // todo: imrpove out animation
+        { "-translate-x-full w-0 opacity-0": autohide && !hovered },
+        { "translate-x-0 w-fit opacity-100": autohide && hovered },
         className
       )}
       {...rest}
@@ -66,4 +98,18 @@ LabeledButton.Button = function Button(
       {props.children}
     </button>
   );
+};
+
+LabeledButton.ShowOnHover = function ShowOnHover({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const { hovered } = useContext(context);
+
+  if (hovered) {
+    return <div className={className}>{children}</div>;
+  } else return <></>;
 };

@@ -77,19 +77,17 @@ export default function NewPokeballPage() {
           name="pokemons"
           render={({ field }) => (
             <div className="form-control">
-              <label className="label flex flex-col items-start">
-                <span className="label-text text-lg mb-2">
-                  Pokémons in pokeball
-                </span>
-                <PokemonPicker
-                  onChange={(pokemons) => {
-                    field.onChange(pokemons);
-                  }}
-                />
-                <ValidationError
-                  error={validationErrors?.pokemons as FieldError}
-                />
-              </label>
+              <span className="label-text text-lg mb-2">
+                Pokémons in pokeball
+              </span>
+              <PokemonPicker
+                onChange={(pokemons) => {
+                  field.onChange(pokemons);
+                }}
+              />
+              <ValidationError
+                error={validationErrors?.pokemons as FieldError}
+              />
             </div>
           )}
         />

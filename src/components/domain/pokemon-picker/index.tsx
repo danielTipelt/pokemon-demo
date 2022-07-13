@@ -4,8 +4,7 @@ import { PokemonPickerModal } from "./Modal";
 import { Sprite } from "@/components/sprite";
 import { toggleItemInArray } from "src/utils/toggleItemInArray";
 import { LabeledButton } from "@/components/LabeledButton";
-import { PlusIcon } from "@/components/Icon";
-import Image from "next/image";
+import { MinusIcon, PlusIcon } from "@/components/Icon";
 
 export function PokemonPicker(props: {
   onChange: (pokemons: SimplePokemon[]) => void;
@@ -28,11 +27,10 @@ export function PokemonPicker(props: {
     <section>
       <ul
         data-testid="selected-pokemons"
-        className="border border-white/10 rounded-lg p-4"
+        className="border border-white/10 rounded-lg p-4 flex flex-wrap gap-4"
       >
         <li title="Pick pokemon">
-          <LabeledButton>
-            <LabeledButton.Label>Add</LabeledButton.Label>
+          <LabeledButton direction="row">
             <LabeledButton.Button
               onClick={() => {
                 setModalOpen(true);
@@ -40,18 +38,26 @@ export function PokemonPicker(props: {
             >
               <PlusIcon />
             </LabeledButton.Button>
+            <LabeledButton.Label>Add</LabeledButton.Label>
           </LabeledButton>
         </li>
         {(pokemons.length ? pokemons : initialPokemons).map((pokemon) => (
           <li key={pokemon.name}>
-            <LabeledButton data-testid="pokeball-pokemon">
+            <LabeledButton data-testid="pokeball-pokemon" direction="row">
               <LabeledButton.Button
                 onClick={() => {
                   handlePokemonsChange(toggleItemInArray(pokemons, pokemon));
                 }}
+                className="relative"
               >
                 <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
+                <LabeledButton.ShowOnHover>
+                  <div className="text-[24px] absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                    <MinusIcon />
+                  </div>
+                </LabeledButton.ShowOnHover>
               </LabeledButton.Button>
+              <LabeledButton.Label autohide>{pokemon.name}</LabeledButton.Label>
             </LabeledButton>
           </li>
         ))}

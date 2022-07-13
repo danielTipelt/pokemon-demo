@@ -35,3 +35,27 @@ export const PlusIcon = () => {
     </svg>
   );
 };
+
+// TODO: get proper icon
+export const MinusIcon = () => {
+  return (
+    <div className="bg-black rounded-full">
+      <svg
+        id="Layer_1"
+        version="1.1"
+        viewBox="0 0 521 521"
+        fill="currentColor"
+        x="0px"
+        y="0px"
+        height="1em"
+        width="1em"
+        xmlSpace="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g>
+          <path d="M256,48C141.1,48,48,141.1,48,256s93.1,208,208,208c114.9,0,208-93.1,208-208S370.9,48,256,48z M384,265H128v-17h256V265z" />
+        </g>
+      </svg>
+    </div>
+  );
+};
