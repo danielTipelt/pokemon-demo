@@ -1,5 +1,6 @@
 import { createContext, HTMLProps, useContext, useMemo } from "react";
 import { nanoid } from "nanoid";
+import classnames from "classnames";
 
 const context = createContext<{ id: string; active?: boolean }>({ id: "" });
 
@@ -30,7 +31,10 @@ LabeledButton.Label = function Label({
   return (
     <label
       htmlFor={id}
-      className={`cursor-pointer text-center text-ellipsis whitespace-nowrap overflow-hidden max-w-[4rem] ${className}`}
+      className={classnames(
+        `cursor-pointer text-center text-ellipsis whitespace-nowrap overflow-hidden max-w-[4rem]`,
+        className
+      )}
       {...rest}
     >
       {rest.children}
@@ -50,9 +54,12 @@ LabeledButton.Button = function Button(
     <button
       type="button"
       {...rest}
-      className={`btn ${shape} text-2xl border-2 hover:border-[3px] hover:border-primary-focus ${
+      className={classnames(
+        `btn text-2xl border-2 hover:border-[3px] hover:border-primary-focus`,
+        { "border-primary-focus": active },
+        shape,
         props.className
-      } ${active ? "border-primary-focus" : ""}`}
+      )}
       aria-pressed={active}
       id={id}
     >
