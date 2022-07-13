@@ -3,19 +3,27 @@ import { ErrorBoundary } from "@/components/error/ErrorBoundary";
 import { Pokeball } from "@/types/Pokeball";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, FieldError } from "react-hook-form";
+import classnames from "classnames";
+import { ValidationError } from "@/components/validation-error";
 
 export type Data = Omit<Pokeball, "id">;
 
 export default function NewPokeballPage() {
   const lastData = useRef<Data>();
   const [error, setError] = useState<Error>();
-  const { register, handleSubmit, control } = useForm<Data>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors: validationErrors },
+  } = useForm<Data>();
 
   const Router = useRouter();
 
   const submit = async (data: Data) => {
     lastData.current = data;
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
@@ -38,22 +46,51 @@ export default function NewPokeballPage() {
       <h1 className="text-4xl font-bold mb-4">
         Add new pokéball to your collection
       </h1>
-      <form name="new-pokeball" onSubmit={handleSubmit(submit)}>
-        <input
-          placeholder="Pokeball name"
-          {...register("name")}
-          className="form-control"
-        ></input>
+      <form
+        name="new-pokeball"
+        onSubmit={handleSubmit(submit)}
+        className="flex flex-col gap-4 items-start"
+      >
+        <div className="form-control">
+          <label className="label flex flex-col items-start">
+            <span className="label-text text-lg mb-2">Pokéball name</span>
+            <input
+              placeholder="Name"
+              {...register("name", {
+                validate: (val) => (val ? undefined : "Name your pokeball"),
+              })}
+              className={classnames(
+                "input input-bordered w-full max-w-xs placeholder:italic",
+                {
+                  "input-error": validationErrors?.name?.message,
+                }
+              )}
+            />
+          </label>
+          <ValidationError error={validationErrors?.name} />
+        </div>
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{
+            validate: (val) => (val ? undefined : "Pick at least one pokemon"),
+          }}
           name="pokemons"
           render={({ field }) => (
-            <PokemonPicker
-              onChange={(pokemons) => {
-                field.onChange(pokemons);
-              }}
-            />
+            <div className="form-control">
+              <label className="label flex flex-col items-start">
+                <span className="label-text text-lg mb-2">
+                  Pokémons in pokeball
+                </span>
+                <PokemonPicker
+                  onChange={(pokemons) => {
+                    field.onChange(pokemons);
+                  }}
+                />
+                <ValidationError
+                  error={validationErrors?.pokemons as FieldError}
+                />
+              </label>
+            </div>
           )}
         />
         <ErrorBoundary

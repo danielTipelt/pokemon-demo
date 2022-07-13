@@ -4,6 +4,8 @@ import { PokemonPickerModal } from "./Modal";
 import { Sprite } from "@/components/sprite";
 import { toggleItemInArray } from "src/utils/toggleItemInArray";
 import { LabeledButton } from "@/components/LabeledButton";
+import { PlusIcon } from "@/components/Icon";
+import Image from "next/image";
 
 export function PokemonPicker(props: {
   onChange: (pokemons: SimplePokemon[]) => void;
@@ -24,14 +26,20 @@ export function PokemonPicker(props: {
 
   return (
     <section>
-      <ul data-testid="selected-pokemons">
+      <ul
+        data-testid="selected-pokemons"
+        className="border border-white/10 rounded-lg p-4"
+      >
         <li title="Pick pokemon">
-          <LabeledButton id="add-pokemon-button">
+          <LabeledButton>
+            <LabeledButton.Label>Add</LabeledButton.Label>
             <LabeledButton.Button
               onClick={() => {
                 setModalOpen(true);
               }}
-            />
+            >
+              <PlusIcon />
+            </LabeledButton.Button>
           </LabeledButton>
         </li>
         {(pokemons.length ? pokemons : initialPokemons).map((pokemon) => (

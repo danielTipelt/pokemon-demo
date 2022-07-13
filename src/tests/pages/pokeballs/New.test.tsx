@@ -13,9 +13,7 @@ describe("New Pokeball page", function () {
     expect(screen.getByRole("heading")).toBeInTheDocument();
 
     const form = screen.getByRole("form");
-    expect(
-      within(form).getByPlaceholderText("Pokeball name")
-    ).toBeInTheDocument();
+    expect(within(form).getByPlaceholderText("Name")).toBeInTheDocument();
     expect(within(form).getByTitle("Pick pokemon")).toBeInTheDocument();
     expect(form.querySelector('button[type="submit"]')).toBeInTheDocument();
   });
@@ -27,11 +25,9 @@ describe("New Pokeball page", function () {
 
     const form = screen.getByRole("form");
 
-    await user.click(within(form).getByPlaceholderText("Pokeball name"));
+    await user.click(within(form).getByPlaceholderText("Name"));
     await user.keyboard("Pikachues");
-    expect(within(form).getByPlaceholderText("Pokeball name")).toHaveValue(
-      "Pikachues"
-    );
+    expect(within(form).getByPlaceholderText("Name")).toHaveValue("Pikachues");
 
     await user.click(
       within(screen.getByTitle("Pick pokemon")).getByRole("button")
@@ -72,6 +68,85 @@ describe("New Pokeball page", function () {
     ).toBeInTheDocument();
   });
 
+  test("It validates form", async function () {
+    const { user } = render(<NewPokeballPage />);
+
+    const form = screen.getByRole("form");
+
+    const serverCall = jest.fn();
+
+    server.use(
+      rest.post<string, PathParams, {}>(
+        `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/pokeballs`,
+        async (req, res, ctx) => {
+          serverCall();
+          return res(ctx.status(400), ctx.json({ message: "Bad request" }));
+        }
+      )
+    );
+
+    // submit
+    await user.click(screen.getByText("Create Pokéball"));
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole("alert", {
+          name: (x, element) => {
+            return element.textContent === "Name your pokeball";
+          },
+        })
+      ).toBeInTheDocument()
+    );
+
+    // fill name
+    await user.click(within(form).getByPlaceholderText("Name"));
+    await user.keyboard("Pikachues");
+    expect(within(form).getByPlaceholderText("Name")).toHaveValue("Pikachues");
+
+    //submit
+    await user.click(screen.getByText("Create Pokéball"));
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole("alert", {
+          name: (x, element) => {
+            return element.textContent === "Pick at least one pokemon";
+          },
+        })
+      ).toBeInTheDocument()
+    );
+
+    // clear name
+    await user.dblClick(within(form).getByPlaceholderText("Name"));
+    await user.cut();
+    expect(within(form).getByPlaceholderText("Name")).toHaveValue("");
+
+    // submit
+    await user.click(screen.getByText("Create Pokéball"));
+
+    // pick pokemon
+    await user.click(
+      within(screen.getByTitle("Pick pokemon")).getByRole("button")
+    );
+    let dialog = screen.getByRole("dialog");
+    await waitFor(() =>
+      expect(
+        within(dialog).getAllByTestId("pokemon-tile")[0]
+      ).toBeInTheDocument()
+    );
+
+    let dialogPokemons = within(dialog).getAllByTestId("pokemon-tile");
+    await user.click(within(dialogPokemons[0]).getByRole("button"));
+    await user.click(within(dialogPokemons[1]).getByRole("button"));
+
+    await user.click(within(dialog).getByText("Confirm"));
+
+    // submit
+    await user.click(screen.getByText("Create Pokéball"));
+
+    expect(serverCall).not.toBeCalled();
+  });
+
   test("It can submit the form", async function () {
     const { user } = render(<NewPokeballPage />);
 
@@ -79,11 +154,9 @@ describe("New Pokeball page", function () {
 
     const form = screen.getByRole("form");
 
-    await user.click(within(form).getByPlaceholderText("Pokeball name"));
+    await user.click(within(form).getByPlaceholderText("Name"));
     await user.keyboard("Pikachues");
-    expect(within(form).getByPlaceholderText("Pokeball name")).toHaveValue(
-      "Pikachues"
-    );
+    expect(within(form).getByPlaceholderText("Name")).toHaveValue("Pikachues");
 
     await user.click(
       within(screen.getByTitle("Pick pokemon")).getByRole("button")
