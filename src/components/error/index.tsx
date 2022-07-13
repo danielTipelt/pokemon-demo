@@ -1,4 +1,9 @@
+import Router from "next/router";
 import { useEffect } from "react";
+
+const defaultRetry = () => {
+  Router.reload();
+};
 
 export function ErrorComponent({
   error,
@@ -14,9 +19,14 @@ export function ErrorComponent({
   }, [error]);
 
   return (
-    <div role="alert" className="text-red-500">
+    <div role="alert" className="alert-error alert">
       <p>Something went wrong</p>
-      <button onClick={resetErrorBoundary}>Try again</button>
+      <button
+        className="btn btn-primary"
+        onClick={resetErrorBoundary || defaultRetry}
+      >
+        Try again
+      </button>
     </div>
   );
 }

@@ -6,7 +6,6 @@ import { SimplePokemon } from "../types/SimplePokemon";
 import { pokemons } from "./db/pokemons";
 import { simplePokemons } from "./db/simple-pokemons";
 import { Blob } from "buffer";
-import { Data } from "@/pages/pokeballs/new";
 import { pokeballs } from "./db/pokeballs";
 
 export const handlers = [

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import {
   ErrorBoundary as ReactErrorBoundary,
   ErrorBoundaryProps,
@@ -7,8 +7,8 @@ import { ErrorComponent } from ".";
 
 export function ErrorBoundary(props: {
   error?: Error;
-  onReset: ErrorBoundaryProps["onReset"];
-  children: ReactElement;
+  onReset?: ErrorBoundaryProps["onReset"];
+  children?: ReactNode;
 }) {
   if (props.error) {
     return (

@@ -43,17 +43,17 @@ LabeledButton.Label = function Label({
 
 LabeledButton.Button = function Button(
   props: HTMLProps<HTMLButtonElement> & {
-    variant?: "btn-square" | "btn-circle";
+    shape?: "btn-square" | "btn-circle";
   }
 ) {
   const { id, active } = useContext(context);
-  const { className, type, variant = "btn-square", ...rest } = props;
+  const { className, type, shape = "btn-square", ...rest } = props;
 
   return (
     <button
       type="button"
       {...rest}
-      className={`btn ${variant} text-2xl border-2 hover:border-[3px] hover:border-primary-focus ${
+      className={`btn ${shape} text-2xl border-2 hover:border-[3px] hover:border-primary-focus ${
         props.className
       } ${active ? "border-primary-focus" : ""}`}
       id={id}

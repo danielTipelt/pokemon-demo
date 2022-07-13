@@ -1,5 +1,7 @@
+import { LabeledButton } from "@/components/LabeledButton";
 import { LoadableContent } from "@/components/loadable-content";
 import { Pagination } from "@/components/pagination";
+import { Sprite } from "@/components/sprite";
 import { SpriteWithName } from "@/components/sprite-with-name/SpriteWithName";
 import type { NextPage } from "next";
 import Link from "next/link";
@@ -8,7 +10,7 @@ import { usePokemons } from "src/hooks/usePokemons";
 import { PaginatedResource } from "../../types/PaginatedResouce";
 import { SimplePokemon } from "../../types/SimplePokemon";
 
-export const limit = 5;
+export const limit = 10;
 
 type PageProps = { firstPage: SimplePokemon[]; totalCount: number };
 
@@ -23,23 +25,34 @@ const PokedexPage: NextPage<PageProps> = (props) => {
   });
 
   return (
-    <div>
-      <h1>Pokedex - get know your pokémons</h1>
+    <div className="sm:container mx-4 sm:mx-auto mt-4">
+      <h1 className="text-2xl mb-6">
+        <span className="text-5xl dark:text-white">Pokedex</span>
+        <br />
+        <span>get know your pokémons</span>
+      </h1>
       <LoadableContent
         isLoading={!data?.results && isValidating}
         onReset={() => mutate()}
         error={error}
       >
         <>
-          <ul data-testid="pokemons">
+          <ul data-testid="pokemons" className="grid grid-auto-columns">
             {data?.results.map((pokemon) => (
               <li key={pokemon.name} title={pokemon.name}>
                 <Link href={`/pokedex/${pokemon.name}`}>
                   <a>
-                    <SpriteWithName
-                      detailsUrl={pokemon.url}
-                      name={pokemon.name}
-                    />
+                    <LabeledButton
+                      id={`pokedex-pokemon-${pokemon.name}`}
+                      className="flex flex-row items-center gap-4"
+                    >
+                      <LabeledButton.Button className="w-20 h-20">
+                        <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
+                      </LabeledButton.Button>
+                      <LabeledButton.Label className="max-w-none">
+                        {pokemon.name}
+                      </LabeledButton.Label>
+                    </LabeledButton>
                   </a>
                 </Link>
               </li>
@@ -49,6 +62,7 @@ const PokedexPage: NextPage<PageProps> = (props) => {
             limit={limit}
             total={data?.count || 0}
             setOffset={setOffset}
+            className={"align-self-end"}
           >
             <Pagination.PrevButton />
             <Pagination.NextButton />

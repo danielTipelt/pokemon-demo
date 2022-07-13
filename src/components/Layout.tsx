@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { ReactNode } from "react";
+import { ErrorBoundary } from "./error/ErrorBoundary";
 
 export function Layout(props: { children: ReactNode }) {
   return (
@@ -30,7 +31,9 @@ export function Layout(props: { children: ReactNode }) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <main>{props.children}</main>
+      <main>
+        <ErrorBoundary>{props.children}</ErrorBoundary>
+      </main>
     </div>
   );
 }

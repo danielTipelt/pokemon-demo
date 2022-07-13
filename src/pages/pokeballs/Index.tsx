@@ -75,7 +75,7 @@ export default function PokeballsPage() {
                           {pokeball.name}
                         </LabeledButton.Label>
                         <LabeledButton.Button
-                          variant="btn-circle"
+                          shape="btn-circle"
                           onClick={() => {
                             setActivePokeball(pokeball);
                           }}

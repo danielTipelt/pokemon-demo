@@ -11055,35 +11055,27 @@ export const pokemons = [
       url: "https://pokeapi.co/api/v2/pokemon-species/1/",
     },
     sprites: {
-      back_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
+      back_default: "/bulbasaur.png",
       back_female: null,
-      back_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png",
+      back_shiny: "/bulbasaur.png",
       back_shiny_female: null,
-      front_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      front_default: "/bulbasaur.png",
       front_female: null,
-      front_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
+      front_shiny: "/bulbasaur.png",
       front_shiny_female: null,
       other: {
         dream_world: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+          front_default: "/bulbasaur.png",
           front_female: null,
         },
         home: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png",
+          front_default: "/bulbasaur.png",
           front_female: null,
-          front_shiny:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/1.png",
+          front_shiny: "/bulbasaur.png",
           front_shiny_female: null,
         },
         "official-artwork": {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+          front_default: "/bulbasaur.png",
         },
       },
     },
@@ -20724,35 +20716,27 @@ export const pokemons = [
       url: "https://pokeapi.co/api/v2/pokemon-species/2/",
     },
     sprites: {
-      back_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png",
+      back_default: "/bulbasaur.png",
       back_female: null,
-      back_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png",
+      back_shiny: "/bulbasaur.png",
       back_shiny_female: null,
-      front_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+      front_default: "/bulbasaur.png",
       front_female: null,
-      front_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png",
+      front_shiny: "/bulbasaur.png",
       front_shiny_female: null,
       other: {
         dream_world: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg",
+          front_default: "/bulbasaur.png",
           front_female: null,
         },
         home: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/2.png",
+          front_default: "/bulbasaur.png",
           front_female: null,
-          front_shiny:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/2.png",
+          front_shiny: "/bulbasaur.png",
           front_shiny_female: null,
         },
         "official-artwork": {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
+          front_default: "/bulbasaur.png",
         },
       },
     },
@@ -31989,41 +31973,27 @@ export const pokemons = [
       url: "https://pokeapi.co/api/v2/pokemon-species/3/",
     },
     sprites: {
-      back_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/3.png",
-      back_female:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/female/3.png",
-      back_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/3.png",
-      back_shiny_female:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/female/3.png",
-      front_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-      front_female:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/female/3.png",
-      front_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png",
-      front_shiny_female:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/female/3.png",
+      back_default: "/bulbasaur.png",
+      back_female: "/bulbasaur.png",
+      back_shiny: "/bulbasaur.png",
+      back_shiny_female: "/bulbasaur.png",
+      front_default: "/bulbasaur.png",
+      front_female: "/bulbasaur.png",
+      front_shiny: "/bulbasaur.png",
+      front_shiny_female: "/bulbasaur.png",
       other: {
         dream_world: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg",
+          front_default: "/bulbasaur.png",
           front_female: null,
         },
         home: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/3.png",
-          front_female:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/female/3.png",
-          front_shiny:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/3.png",
-          front_shiny_female:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/female/3.png",
+          front_default: "/bulbasaur.png",
+          front_female: "/bulbasaur.png",
+          front_shiny: "/bulbasaur.png",
+          front_shiny_female: "/bulbasaur.png",
         },
         "official-artwork": {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
+          front_default: "/bulbasaur.png",
         },
       },
     },
@@ -44316,35 +44286,27 @@ export const pokemons = [
       url: "https://pokeapi.co/api/v2/pokemon-species/4/",
     },
     sprites: {
-      back_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png",
+      back_default: "/bulbasaur.png",
       back_female: null,
-      back_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/4.png",
+      back_shiny: "/bulbasaur.png",
       back_shiny_female: null,
-      front_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+      front_default: "/bulbasaur.png",
       front_female: null,
-      front_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/4.png",
+      front_shiny: "/bulbasaur.png",
       front_shiny_female: null,
       other: {
         dream_world: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg",
+          front_default: "/bulbasaur.png",
           front_female: null,
         },
         home: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png",
+          front_default: "/bulbasaur.png",
           front_female: null,
-          front_shiny:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/4.png",
+          front_shiny: "/bulbasaur.png",
           front_shiny_female: null,
         },
         "official-artwork": {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+          front_default: "/bulbasaur.png",
         },
       },
     },
@@ -55018,35 +54980,27 @@ export const pokemons = [
       url: "https://pokeapi.co/api/v2/pokemon-species/5/",
     },
     sprites: {
-      back_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png",
+      back_default: "/bulbasaur.png",
       back_female: null,
-      back_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/5.png",
+      back_shiny: "/bulbasaur.png",
       back_shiny_female: null,
-      front_default:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+      front_default: "/bulbasaur.png",
       front_female: null,
-      front_shiny:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/5.png",
+      front_shiny: "/bulbasaur.png",
       front_shiny_female: null,
       other: {
         dream_world: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg",
+          front_default: "/bulbasaur.png",
           front_female: null,
         },
         home: {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/5.png",
+          front_default: "/bulbasaur.png",
           front_female: null,
-          front_shiny:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/5.png",
+          front_shiny: "/bulbasaur.png",
           front_shiny_female: null,
         },
         "official-artwork": {
-          front_default:
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png",
+          front_default: "/bulbasaur.png",
         },
       },
     },

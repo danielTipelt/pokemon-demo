@@ -8,7 +8,7 @@ export const pokeballs: Pokeball[] = [
     pokemons: [simplePokemons[0], simplePokemons[1], simplePokemons[2]],
   },
   {
-    id: "1",
+    id: "2",
     name: "Pika",
     pokemons: [simplePokemons[3], simplePokemons[4], simplePokemons[5]],
   },
