@@ -36,10 +36,7 @@ export function PokemonPicker(props: {
         </li>
         {(pokemons.length ? pokemons : initialPokemons).map((pokemon) => (
           <li key={pokemon.name}>
-            <LabeledButton
-              id="picked-pokemon-button"
-              data-testid="pokeball-pokemon"
-            >
+            <LabeledButton data-testid="pokeball-pokemon">
               <LabeledButton.Button
                 onClick={() => {
                   handlePokemonsChange(toggleItemInArray(pokemons, pokemon));

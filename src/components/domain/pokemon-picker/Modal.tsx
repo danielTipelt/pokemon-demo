@@ -36,7 +36,6 @@ export function PokemonPickerModal(props: {
           {data?.results.map((pokemon) => (
             <li key={pokemon.name}>
               <LabeledButton
-                id="picked-pokemon-button"
                 active={selectedPokemons.includes(pokemon)}
                 data-testid="pokemon-tile"
               >

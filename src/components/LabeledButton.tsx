@@ -1,17 +1,18 @@
-import { createContext, HTMLProps, useContext } from "react";
+import { createContext, HTMLProps, useContext, useMemo } from "react";
+import { nanoid } from "nanoid";
 
 const context = createContext<{ id: string; active?: boolean }>({ id: "" });
 
 export function LabeledButton({
   active,
-  id,
   className,
   children,
   ...rest
 }: {
   active?: boolean;
-  id: string;
 } & HTMLProps<HTMLDivElement>) {
+  const id = useMemo(() => nanoid(), []);
+
   return (
     <context.Provider value={{ id, active }}>
       <div className={`${className ?? "flex flex-col"}`} {...rest}>

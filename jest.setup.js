@@ -25,6 +25,8 @@ window.IntersectionObserver = jest.fn(function () {
   this.disconnect = jest.fn();
 });
 
+window.crypto = require("@trust/webcrypto");
+
 /** MSW */
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());

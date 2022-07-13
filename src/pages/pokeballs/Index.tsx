@@ -1,7 +1,6 @@
-import { Icon, PlusIcon } from "@/components/Icon";
+import { PlusIcon } from "@/components/Icon";
 import { LabeledButton } from "@/components/LabeledButton";
 import { Sprite } from "@/components/sprite";
-import { pokemons } from "@/msw/db/pokemons";
 import Link from "next/link";
 import Router from "next/router";
 import { ReactNode, useEffect, useState } from "react";
@@ -46,10 +45,7 @@ export default function PokeballsPage() {
                 data-testid="pokeballs"
               >
                 <li>
-                  <LabeledButton
-                    id="create-pokeball-button"
-                    data-testid="new-pokeball-button"
-                  >
+                  <LabeledButton data-testid="new-pokeball-button">
                     <LabeledButton.Label>Create</LabeledButton.Label>
                     <LabeledButton.Button
                       title="Create new pokeball"
@@ -70,7 +66,6 @@ export default function PokeballsPage() {
                     return (
                       <li key={pokeball.id}>
                         <LabeledButton
-                          id={`${pokeball.name}-button`}
                           active={pokeball === activePokeball}
                           data-testid={`pokeball-button`}
                         >
@@ -112,10 +107,7 @@ export default function PokeballsPage() {
                 >
                   <Link href={`/pokedex/${pokemon.name}`}>
                     <a>
-                      <LabeledButton
-                        id={`pokeball-detail-${pokemon.name}`}
-                        className="flex flex-row items-center gap-4"
-                      >
+                      <LabeledButton className="flex flex-row items-center gap-4">
                         <LabeledButton.Button>
                           <Sprite
                             detailsUrl={pokemon.url}

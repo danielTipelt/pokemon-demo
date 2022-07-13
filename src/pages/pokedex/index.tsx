@@ -42,10 +42,7 @@ const PokedexPage: NextPage<PageProps> = (props) => {
               <li key={pokemon.name} title={pokemon.name}>
                 <Link href={`/pokedex/${pokemon.name}`}>
                   <a>
-                    <LabeledButton
-                      id={`pokedex-pokemon-${pokemon.name}`}
-                      className="flex flex-row items-center gap-4"
-                    >
+                    <LabeledButton className="flex flex-row items-center gap-4">
                       <LabeledButton.Button className="w-20 h-20">
                         <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
                       </LabeledButton.Button>
