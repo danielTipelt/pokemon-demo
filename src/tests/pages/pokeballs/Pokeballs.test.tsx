@@ -42,36 +42,49 @@ describe("Pokeball page", function () {
 
       expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
 
-      const pokeballs = await waitFor(() => screen.getAllByTestId("pokeball"));
+      await waitFor(() =>
+        expect(
+          within(screen.getByTestId("pokeballs")).getAllByRole("button")
+        ).toHaveLength(4)
+      );
 
-      expect(pokeballs).toHaveLength(3);
+      const pokeballs = within(screen.getByTestId("pokeballs")).getAllByRole(
+        "button"
+      );
 
-      expect(pokeballs[0].title).toEqual("Pika pika");
-      expect(pokeballs[1].title).toEqual("Bulba bulba");
-      expect(pokeballs[2].title).toEqual("Char char");
+      expect(pokeballs[0].title).toEqual("Create new pokeball");
+      expect(pokeballs[1].title).toEqual("Pika pika");
+      expect(pokeballs[2].title).toEqual("Bulba bulba");
+      expect(pokeballs[3].title).toEqual("Char char");
     });
 
     test("It shows active pokeball", async function () {
       const { user } = render(<PokeballsPage />);
 
-      const [activePokeball, nextPokeball] = await waitFor(() =>
-        screen.getAllByTestId("pokeball")
+      await waitFor(() =>
+        expect(
+          within(screen.getByTestId("pokeballs")).getAllByRole("button")
+        ).toHaveLength(4)
       );
+
+      const [_, activePokeball, nextPokeball] = within(
+        screen.getByTestId("pokeballs")
+      ).getAllByRole("button");
 
       await waitFor(() =>
-        expect(activePokeball).toHaveAttribute("aria-current", "true")
+        expect(activePokeball).toHaveAttribute("aria-pressed", "true")
       );
-      expect(nextPokeball).not.toHaveAttribute("aria-current", "true");
+      expect(nextPokeball).not.toHaveAttribute("aria-pressed", "true");
 
-      await user.click(within(nextPokeball).getByRole("button"));
-      expect(nextPokeball).toHaveAttribute("aria-current", "true");
-      expect(activePokeball).not.toHaveAttribute("aria-current", "true");
+      await user.click(nextPokeball);
+      expect(nextPokeball).toHaveAttribute("aria-pressed", "true");
+      expect(activePokeball).not.toHaveAttribute("aria-pressed", "true");
     });
 
     test("It shows new pokeball button", async function () {
       const { user } = render(<PokeballsPage />);
 
-      const createPokeballItem = screen.getByTestId("create-pokeball");
+      const createPokeballItem = screen.getByTestId("new-pokeball-button");
       expect(createPokeballItem).toBeInTheDocument();
       await user.click(within(createPokeballItem).getByRole("button"));
 
@@ -81,10 +94,10 @@ describe("Pokeball page", function () {
     test("It shows loading state", async function () {
       render(<PokeballsPage />);
       expect(screen.queryByTestId("spinner")).toBeInTheDocument();
-      expect(screen.queryAllByTestId("pokeball")).toHaveLength(0);
+      expect(screen.queryAllByTestId("pokeball-button")).toHaveLength(0);
 
       await waitFor(() =>
-        expect(screen.queryAllByTestId("pokeball")).toHaveLength(3)
+        expect(screen.queryAllByTestId("pokeball-button")).toHaveLength(3)
       );
       expect(screen.queryByTestId("spinner")).not.toBeInTheDocument();
     });
@@ -134,27 +147,33 @@ describe("Pokeball page", function () {
     test("It shows active pokeball details", async function () {
       render(<PokeballsPage />);
 
-      const pokeballs = await waitFor(() => screen.getAllByTestId("pokeball"));
-      const activePokeballElement = pokeballs.find(
-        (pokeball) => pokeball.getAttribute("aria-current") === "true"
-      );
-      const activePokeball = usedPokeballs.find(
-        (pokeball) => pokeball.name === activePokeballElement?.title
+      await waitFor(() =>
+        expect(
+          within(screen.getByTestId("pokeballs")).getByRole("button", {
+            pressed: true,
+          })
+        ).toBeInTheDocument()
       );
 
+      const activePokeball = within(screen.getByTestId("pokeballs")).getByRole(
+        "button",
+        {
+          pressed: true,
+        }
+      );
+
+      expect(activePokeball).toHaveAttribute("title", "Pika pika");
+
       expect(screen.getByRole("heading", { level: 2 }).textContent).toEqual(
-        activePokeballElement?.title
+        "Pika pika"
       );
 
       const pokemonsInPokeball = screen.getAllByTestId("pokeball-pokemon");
       expect(pokemonsInPokeball).toHaveLength(2);
-      expect(pokemonsInPokeball[0]).toHaveAttribute(
-        "title",
-        activePokeball?.pokemons[0].name
-      );
+      expect(pokemonsInPokeball[0]).toHaveAttribute("title", "electrode");
       expect(within(pokemonsInPokeball[0]).getByRole("link")).toHaveAttribute(
         "href",
-        `/pokedex/${activePokeball?.pokemons[0].name}`
+        `/pokedex/electrode`
       );
     });
   });

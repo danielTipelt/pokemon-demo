@@ -41,15 +41,18 @@ export default function PokeballsPage() {
                 mutate();
               }}
             >
-              <ul className="flex flex-row flex-wrap gap-4">
+              <ul
+                className="flex flex-row flex-wrap gap-4"
+                data-testid="pokeballs"
+              >
                 <li>
                   <LabeledButton
                     id="create-pokeball-button"
-                    data-testid="create-pokeball"
-                    title="Create new pokeball"
+                    data-testid="new-pokeball-button"
                   >
                     <LabeledButton.Label>Create</LabeledButton.Label>
                     <LabeledButton.Button
+                      title="Create new pokeball"
                       onClick={() => {
                         Router.push("/pokeballs/new");
                       }}
@@ -63,33 +66,35 @@ export default function PokeballsPage() {
                     <span data-testid="spinner">...loading</span>
                   </li>
                 ) : (
-                  pokeballs.map((pokeball) => (
-                    <li key={pokeball.id}>
-                      <LabeledButton
-                        data-testid="pokeball"
-                        id={`${pokeball.name}-button`}
-                        active={pokeball === activePokeball}
-                        title={pokeball.name}
-                      >
-                        <LabeledButton.Label>
-                          {pokeball.name}
-                        </LabeledButton.Label>
-                        <LabeledButton.Button
-                          shape="btn-circle"
-                          onClick={() => {
-                            setActivePokeball(pokeball);
-                          }}
+                  pokeballs.map((pokeball) => {
+                    return (
+                      <li key={pokeball.id}>
+                        <LabeledButton
+                          id={`${pokeball.name}-button`}
+                          active={pokeball === activePokeball}
+                          data-testid={`pokeball-button`}
                         >
-                          {!!pokeball.pokemons[0]?.url && (
-                            <Sprite
-                              detailsUrl={pokeball.pokemons[0].url}
-                              name={pokeball.pokemons[0].name}
-                            />
-                          )}
-                        </LabeledButton.Button>
-                      </LabeledButton>
-                    </li>
-                  ))
+                          <LabeledButton.Label>
+                            {pokeball.name}
+                          </LabeledButton.Label>
+                          <LabeledButton.Button
+                            shape="btn-circle"
+                            onClick={() => {
+                              setActivePokeball(pokeball);
+                            }}
+                            title={pokeball.name}
+                          >
+                            {!!pokeball.pokemons[0]?.url && (
+                              <Sprite
+                                detailsUrl={pokeball.pokemons[0].url}
+                                name={pokeball.pokemons[0].name}
+                              />
+                            )}
+                          </LabeledButton.Button>
+                        </LabeledButton>
+                      </li>
+                    );
+                  })
                 )}
               </ul>
             </ErrorBoundary>

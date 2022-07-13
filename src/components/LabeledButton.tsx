@@ -14,11 +14,7 @@ export function LabeledButton({
 } & HTMLProps<HTMLDivElement>) {
   return (
     <context.Provider value={{ id, active }}>
-      <div
-        className={`${className ?? "flex flex-col"}`}
-        aria-current={active}
-        {...rest}
-      >
+      <div className={`${className ?? "flex flex-col"}`} {...rest}>
         {children}
       </div>
     </context.Provider>
@@ -56,6 +52,7 @@ LabeledButton.Button = function Button(
       className={`btn ${shape} text-2xl border-2 hover:border-[3px] hover:border-primary-focus ${
         props.className
       } ${active ? "border-primary-focus" : ""}`}
+      aria-pressed={active}
       id={id}
     >
       {props.children}

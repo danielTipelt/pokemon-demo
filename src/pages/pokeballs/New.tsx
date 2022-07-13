@@ -1,7 +1,6 @@
 import { PokemonPicker } from "@/components/domain/pokemon-picker";
 import { ErrorBoundary } from "@/components/error/ErrorBoundary";
 import { Pokeball } from "@/types/Pokeball";
-import { SimplePokemon } from "@/types/SimplePokemon";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -35,10 +34,16 @@ export default function NewPokeballPage() {
   };
 
   return (
-    <div>
-      <h1>Add new pokéball to your collection</h1>
+    <div className="sm:container mx-4 sm:mx-auto mt-6">
+      <h1 className="text-4xl font-bold mb-4">
+        Add new pokéball to your collection
+      </h1>
       <form name="new-pokeball" onSubmit={handleSubmit(submit)}>
-        <input placeholder="Pokeball name" {...register("name")}></input>
+        <input
+          placeholder="Pokeball name"
+          {...register("name")}
+          className="form-control"
+        ></input>
         <Controller
           control={control}
           rules={{ required: true }}
@@ -55,7 +60,9 @@ export default function NewPokeballPage() {
           onReset={() => (lastData.current ? submit(lastData.current) : null)}
           error={error}
         >
-          <button type="submit">Create Pokéball</button>
+          <button className="btn btn-primary" type="submit">
+            Create Pokéball
+          </button>
         </ErrorBoundary>
       </form>
     </div>

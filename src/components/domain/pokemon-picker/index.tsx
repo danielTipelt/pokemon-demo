@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { SimplePokemon } from "src/types/SimplePokemon";
-import { ListTile } from "@/components/list-tile";
 import { PokemonPickerModal } from "./Modal";
 import { Sprite } from "@/components/sprite";
 import { toggleItemInArray } from "src/utils/toggleItemInArray";
+import { LabeledButton } from "@/components/LabeledButton";
 
 export function PokemonPicker(props: {
   onChange: (pokemons: SimplePokemon[]) => void;
@@ -26,25 +26,28 @@ export function PokemonPicker(props: {
     <section>
       <ul data-testid="selected-pokemons">
         <li title="Pick pokemon">
-          <ListTile image={"➕"}>
-            <ListTile.Button
+          <LabeledButton id="add-pokemon-button">
+            <LabeledButton.Button
               onClick={() => {
                 setModalOpen(true);
               }}
             />
-          </ListTile>
+          </LabeledButton>
         </li>
         {(pokemons.length ? pokemons : initialPokemons).map((pokemon) => (
-          <li key={pokemon.name} data-testid="pokeball-pokemon">
-            <ListTile
-              image={<Sprite detailsUrl={pokemon.url} name={pokemon.name} />}
+          <li key={pokemon.name}>
+            <LabeledButton
+              id="picked-pokemon-button"
+              data-testid="pokeball-pokemon"
             >
-              <ListTile.Controls
-                onDelete={() => {
+              <LabeledButton.Button
+                onClick={() => {
                   handlePokemonsChange(toggleItemInArray(pokemons, pokemon));
                 }}
-              />
-            </ListTile>
+              >
+                <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
+              </LabeledButton.Button>
+            </LabeledButton>
           </li>
         ))}
       </ul>

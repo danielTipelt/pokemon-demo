@@ -1,4 +1,4 @@
-import { ListTile } from "@/components/list-tile";
+import { LabeledButton } from "@/components/LabeledButton";
 import { LoadableContent } from "@/components/loadable-content";
 import { Pagination } from "@/components/pagination";
 import { Sprite } from "@/components/sprite";
@@ -34,19 +34,22 @@ export function PokemonPickerModal(props: {
       >
         <ul>
           {data?.results.map((pokemon) => (
-            <li key={pokemon.name} data-testid="pokemon-tile">
-              <ListTile
-                image={<Sprite detailsUrl={pokemon.url} name={pokemon.name} />}
-                selected={selectedPokemons.includes(pokemon)}
+            <li key={pokemon.name}>
+              <LabeledButton
+                id="picked-pokemon-button"
+                active={selectedPokemons.includes(pokemon)}
+                data-testid="pokemon-tile"
               >
-                <ListTile.Button
+                <LabeledButton.Button
                   onClick={() => {
                     setSelectedPokemons((selectedPokemons) =>
                       toggleItemInArray(selectedPokemons, pokemon)
                     );
                   }}
-                />
-              </ListTile>
+                >
+                  <Sprite detailsUrl={pokemon.url} name={pokemon.name} />
+                </LabeledButton.Button>
+              </LabeledButton>
             </li>
           ))}
         </ul>
