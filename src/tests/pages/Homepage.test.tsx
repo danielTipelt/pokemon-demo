@@ -1,6 +1,6 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
-import HomePage from "../../pages/index";
+import HomePage from "@/pages/index";
 
 describe("homepage", function () {
   test("I shows title, decription and pokeball image", function () {

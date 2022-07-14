@@ -1,14 +1,13 @@
-import { LabeledButton } from "@/components/LabeledButton";
-import { LoadableContent } from "@/components/loadable-content";
-import { Pagination } from "@/components/pagination";
-import { Sprite } from "@/components/sprite";
-import { SpriteWithName } from "@/components/sprite-with-name/SpriteWithName";
+import { LabeledButton } from "@/components/common/LabeledButton";
+import { LoadableContent } from "@/components/common/loadable-content/LoadableContent";
+import { Pagination } from "@/components/common/pagination/Pagination";
+import { Sprite } from "@/components/common/sprite/Sprite";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { usePokemons } from "src/hooks/usePokemons";
-import { PaginatedResource } from "../../types/PaginatedResouce";
-import { SimplePokemon } from "../../types/SimplePokemon";
+import { PaginatedResource } from "@/types/PaginatedResouce";
+import { SimplePokemon } from "@/types/SimplePokemon";
 
 export const limit = 10;
 

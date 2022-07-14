@@ -1,9 +1,8 @@
-import type { NextPage } from "next";
 import Link from "next/link";
-import { Layout } from "../components/Layout";
-import { PokebalCssImage } from "../components/domain/pokebal-css-image";
+import { Layout } from "@/components/common/Layout";
+import { PokebalCssImage } from "@/components/domain/pokebal-css-image/PokeballCssImage";
 
-const HomePage: NextPage = () => {
+export default function HomePage() {
   return (
     <Layout>
       <div className="hero min-h-screen bg-base-200">
@@ -26,6 +25,4 @@ const HomePage: NextPage = () => {
       </div>
     </Layout>
   );
-};
-
-export default HomePage;
+}

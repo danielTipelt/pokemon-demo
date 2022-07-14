@@ -34,6 +34,7 @@ export function LabeledButton({
         className={classnames("flex flex-wrap items-center", {
           "flex-col": direction === "column",
           "flex-row gap-4": direction === "row",
+          className,
         })}
         onMouseOver={() => {
           setHovered(true);
@@ -80,17 +81,22 @@ LabeledButton.Button = function Button(
   }
 ) {
   const { id, active } = useContext(context);
-  const { className, type, shape = "btn-square", ...rest } = props;
+  const {
+    className,
+    type = "button" as const,
+    shape = "btn-square",
+    ...rest
+  } = props;
 
   return (
     <button
-      type="button"
+      type={type}
       {...rest}
       className={classnames(
         `btn text-2xl border-2 hover:border-[3px] hover:border-primary-focus`,
         { "border-primary-focus": active },
         shape,
-        props.className
+        className
       )}
       aria-pressed={active}
       id={id}

@@ -1,6 +1,6 @@
-import { ErrorBoundary } from "@/components/error/ErrorBoundary";
+import { ErrorBoundary } from "@/components/common/error/ErrorBoundary";
 import { ReactNode } from "react";
-import { Spinner } from "../Spinner";
+import { Spinner } from "@/components/common/Spinner";
 
 export function LoadableContent(props: {
   error: any;

@@ -1,10 +1,10 @@
 import { useCallback, useRef, useState } from "react";
 import { SimplePokemon } from "src/types/SimplePokemon";
 import { PokemonPickerModal } from "./Modal";
-import { Sprite } from "@/components/sprite";
+import { Sprite } from "@/components/common/sprite/Sprite";
 import { toggleItemInArray } from "src/utils/toggleItemInArray";
-import { LabeledButton } from "@/components/LabeledButton";
-import { MinusIcon, PlusIcon } from "@/components/Icon";
+import { LabeledButton } from "@/components/common/LabeledButton";
+import { MinusIcon, PlusIcon } from "@/components/common/Icon";
 
 export function PokemonPicker(props: {
   onChange: (pokemons: SimplePokemon[]) => void;

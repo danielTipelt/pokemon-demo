@@ -1,11 +1,11 @@
-import { PokemonPicker } from "@/components/domain/pokemon-picker";
-import { ErrorBoundary } from "@/components/error/ErrorBoundary";
+import { PokemonPicker } from "@/components/domain/pokemon-picker/PokemonPicker";
+import { ErrorBoundary } from "@/components/common/error/ErrorBoundary";
 import { Pokeball } from "@/types/Pokeball";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useForm, Controller, FieldError } from "react-hook-form";
 import classnames from "classnames";
-import { ValidationError } from "@/components/validation-error";
+import { ValidationError } from "@/components/common/validation-error/ValidationError";
 
 export type Data = Omit<Pokeball, "id">;
 

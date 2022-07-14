@@ -1,5 +1,5 @@
 import { render, screen } from "@/tests/test-utils";
-import { Pagination } from ".";
+import { Pagination } from "./Pagination";
 
 describe("Pagination", () => {
   test("should render", async () => {

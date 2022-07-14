@@ -1,5 +1,5 @@
-import { ErrorComponent } from "@/components/error";
-import { GetServerSideProps, NextPage, NextPageContext } from "next";
+import { ErrorComponent } from "@/components/common/error/Error";
+import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import { Pokemon } from "src/types/Pokemon";
 import { firstLetterCased } from "src/utils/firstLetterCased";

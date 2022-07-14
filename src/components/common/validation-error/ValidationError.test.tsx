@@ -1,6 +1,6 @@
 import { render, screen } from "@/tests/test-utils";
 import { FieldError } from "react-hook-form";
-import { ValidationError } from ".";
+import { ValidationError } from "./ValidationError";
 
 describe("ValidationError", () => {
   test("It shows error message", () => {

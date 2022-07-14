@@ -1,5 +1,5 @@
 import { render, screen } from "@/tests/test-utils";
-import { LoadableContent } from ".";
+import { LoadableContent } from "./LoadableContent";
 
 describe("LoadableContent", () => {
   test("It shows loading indicator", async () => {

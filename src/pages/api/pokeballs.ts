@@ -10,7 +10,7 @@ export default function userPokeballsHandler(
   res: NextApiResponse
 ) {
   const {
-    query: { id, name },
+    query: { id },
     method,
   } = req;
 

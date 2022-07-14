@@ -1,9 +1,9 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import {
   ErrorBoundary as ReactErrorBoundary,
   ErrorBoundaryProps,
 } from "react-error-boundary";
-import { ErrorComponent } from ".";
+import { ErrorComponent } from "./Error";
 
 export function ErrorBoundary(props: {
   error?: Error;

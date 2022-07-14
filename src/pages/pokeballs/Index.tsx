@@ -1,14 +1,14 @@
-import { PlusIcon } from "@/components/Icon";
-import { LabeledButton } from "@/components/LabeledButton";
-import { Sprite } from "@/components/sprite";
+import { PlusIcon } from "@/components/common/Icon";
+import { LabeledButton } from "@/components/common/LabeledButton";
+import { Sprite } from "@/components/common/sprite/Sprite";
 import Link from "next/link";
 import Router from "next/router";
 import { ReactNode, useEffect, useState } from "react";
 import { firstLetterCased } from "src/utils/firstLetterCased";
-import { useFetch } from "../../api/fetch";
-import { ErrorBoundary } from "../../components/error/ErrorBoundary";
-import { Layout } from "../../components/Layout";
-import { Pokeball } from "../../types/Pokeball";
+import { useFetch } from "src/api/fetch";
+import { ErrorBoundary } from "@/components/common/error/ErrorBoundary";
+import { Layout } from "@/components/common/Layout";
+import { Pokeball } from "@/types/Pokeball";
 
 export default function PokeballsPage() {
   const {

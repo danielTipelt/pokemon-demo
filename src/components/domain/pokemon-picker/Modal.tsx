@@ -1,7 +1,7 @@
-import { LabeledButton } from "@/components/LabeledButton";
-import { LoadableContent } from "@/components/loadable-content";
-import { Pagination } from "@/components/pagination";
-import { Sprite } from "@/components/sprite";
+import { LabeledButton } from "@/components/common/LabeledButton";
+import { LoadableContent } from "@/components/common/loadable-content/LoadableContent";
+import { Pagination } from "@/components/common/pagination/Pagination";
+import { Sprite } from "@/components/common/sprite/Sprite";
 import { SimplePokemon } from "@/types/SimplePokemon";
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
