@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-For mocked version run
+For unmocked version
 
 ```bash
 npm run dev
@@ -10,12 +10,12 @@ npm run dev
 yarn dev
 ```
 
-For unmocked version
+For mocked version
 
 ```bash
-npm run dev-unmocked
+npm run dev-mocked
 # or
-yarn dev-unmocked
+yarn dev-mocked
 ```
 
 ## Observed issues:

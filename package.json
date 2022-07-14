@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev-unmocked": "NEXT_PUBLIC_API_MOCKING=disabled yarn dev",
+    "dev-mocked": "NEXT_PUBLIC_API_MOCKING=enabled yarn dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
